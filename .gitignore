@@ -1,0 +1,6 @@
+# See https://vite.dev/guide/static-deploy.html#git-ignores
+node_modules/
+dist/
+.env
+.env.local
+

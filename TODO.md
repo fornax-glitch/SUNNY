@@ -1,0 +1,1 @@
+# Deployment to Vercel TODO\n\n- [ ] Step 1: Verify Git setup (.git, .gitignore, initial commit)\n- [ ] Step 2: Install Vercel CLI\n- [ ] Step 3: Vercel login\n- [ ] Step 4: Create vercel.json for SPA routing\n- [ ] Step 5: Deploy with vercel\n- [ ] Step 6: Test deployment and complete\n
