@@ -4,43 +4,52 @@ import { ArrowRight, Phone } from 'lucide-react';
 import ServiceGrid from '../components/ServiceGrid';
 import CTABanner from '../components/CTABanner';
 import BeforeAfterSlider from '../components/BeforeAfterSlider';
-import { SERVICE_PILLARS, BEFORE_AFTER_ITEMS } from '../data';
+import { BEFORE_AFTER_ITEMS } from '../data';
+import { SERVICE_CATEGORIES } from '../data/serviceCategories';
+
+// Note: this page is now routed by /services/:category/:service
+
+
 
 const ServiceDetailPage: React.FC = () => {
-  const { slug } = useParams<{ slug: string }>();
-  const pillar = SERVICE_PILLARS.find((p) => p.slug === slug);
+  const { category, service } = useParams<{ category: string; service: string }>();
+
+  const categoryData = SERVICE_CATEGORIES.find((c) => c.slug === category);
+  const serviceData = categoryData?.services.find((s) => s.slug === service);
+
   const [activeTab, setActiveTab] = useState<'all' | 'residential' | 'commercial'>('all');
 
-  if (!pillar) return <Navigate to="/services" replace />;
+  const audienceFilteredServices = serviceData?.audience;
+  const showResidential =
+    activeTab === 'all' || activeTab === 'residential' || audienceFilteredServices?.includes('residential');
+  const showCommercial =
+    activeTab === 'all' || activeTab === 'commercial' || audienceFilteredServices?.includes('commercial');
 
-  const filteredServices =
-    activeTab === 'all'
-      ? pillar.services
-      : pillar.services.filter((s) => s.category === activeTab || s.category === 'both');
+  if (!categoryData || !serviceData) return <Navigate to="/services" replace />;
 
+  // Visuals based on top-level category
   const heroBg = {
     cleaning: 'from-sky-900 to-sky-700',
-    'pressure-washing': 'from-gray-900 to-sky-900',
     handyman: 'from-gray-900 to-amber-900',
-  }[slug ?? 'cleaning'] ?? 'from-gray-900 to-sky-900';
+  }[categoryData.slug as 'cleaning' | 'handyman'] ?? 'from-gray-900 to-sky-900';
 
   const accentColor = {
     cleaning: 'text-sky-400',
-    'pressure-washing': 'text-sky-300',
     handyman: 'text-sunny-400',
-  }[slug ?? 'cleaning'] ?? 'text-sunny-400';
+  }[categoryData.slug as 'cleaning' | 'handyman'] ?? 'text-sunny-400';
 
-  const isPressureWashing = slug === 'pressure-washing';
+  const isPressureWashing = serviceData.slug === 'pressure-washing';
+
 
   return (
     <div className="pt-[88px]">
       {/* Hero */}
-      <section className={`bg-gradient-to-br ${heroBg} py-20 lg:py-28 relative overflow-hidden`}>
+      <section className={`bg-linear-to-br ${heroBg} py-20 lg:py-28 relative overflow-hidden`}>
         <div
           className="absolute inset-0 bg-cover bg-center opacity-20"
-          style={{ backgroundImage: `url('${pillar.image}')` }}
+          style={{ backgroundImage: `url('${categoryData.image}')` }}
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/60 to-transparent" />
+        <div className="absolute inset-0 bg-linear-to-r from-black/60 to-transparent" />
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Breadcrumb */}
@@ -49,27 +58,37 @@ const ServiceDetailPage: React.FC = () => {
             <span>/</span>
             <Link to="/services" className="hover:text-white transition-colors">Services</Link>
             <span>/</span>
-            <span className="text-white font-medium">{pillar.name}</span>
+            <Link
+              to={`/services/${categoryData.slug}`}
+              className="hover:text-white transition-colors"
+            >
+              {categoryData.title}
+            </Link>
+            <span>/</span>
+            <span className="text-white font-medium">{serviceData.title}</span>
           </div>
+
 
           <div className="max-w-2xl">
             <span className={`text-sm font-bold uppercase tracking-wider ${accentColor} mb-3 block`}>
-              Service Pillar
+              {categoryData.title}
             </span>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-white mb-4 leading-tight">
-              {pillar.name}
+              {serviceData.title}
             </h1>
-            <p className={`text-xl font-semibold italic mb-5 ${accentColor}`}>
-              "{pillar.tagline}"
+            <p className={`text-xl font-semibold italic mb-5 ${accentColor}`}
+            >
+              "${serviceData.slug.replace(/-/g, ' ')}"
             </p>
-            <p className="text-gray-300 text-lg leading-relaxed mb-8">{pillar.description}</p>
+            <p className="text-gray-300 text-lg leading-relaxed mb-8">{serviceData.description ?? categoryData.description}</p>
+
 
             <div className="flex flex-col sm:flex-row gap-4">
               <Link to="/contact" className="btn-primary">
                 Get a Free Quote
                 <ArrowRight size={16} />
               </Link>
-              <a href="tel:+12505550199" className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white font-semibold rounded-lg border border-white/20 transition-all">
+              <a href="tel:+12508899222" className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white font-semibold rounded-lg border border-white/20 transition-all">
                 <Phone size={16} />
                 Call Us Now
               </a>
@@ -79,32 +98,16 @@ const ServiceDetailPage: React.FC = () => {
       </section>
 
       {/* Pressure Washing Seasonal Banner */}
-      {isPressureWashing && (
-        <section className="bg-gradient-to-r from-sunny-400 to-sunny-500 py-5">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 text-center sm:text-left">
-              <span className="text-3xl">🌸</span>
-              <p className="text-gray-900 font-bold text-lg">
-                Spring is Pressure Washing Season – Renew Your Curb Appeal Today!
-              </p>
-              <Link
-                to="/contact"
-                className="px-5 py-2 bg-gray-900 text-white font-bold rounded-lg hover:bg-gray-800 transition-colors text-sm shrink-0"
-              >
-                Book Now →
-              </Link>
-            </div>
-          </div>
-        </section>
-      )}
+ {/* Old banner removed - seasonal banner now in HomePage */} 
 
       {/* Services grid */}
       <section className="py-20 lg:py-28 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-10">
-            <h2 className="text-3xl md:text-4xl font-black text-gray-900 mb-4">
-              Our <span className="text-sky-600">{pillar.name}</span> Services
+              <h2 className="text-3xl md:text-4xl font-black text-gray-900 mb-4">
+              Explore <span className="text-sky-600">{categoryData.title}</span> Services
             </h2>
+
             <p className="text-gray-600 max-w-xl mx-auto mb-8">
               Filter by client type to find the exact service you need.
             </p>
@@ -127,7 +130,10 @@ const ServiceDetailPage: React.FC = () => {
             </div>
           </div>
 
-          <ServiceGrid services={filteredServices} ctaHref="/contact" />
+          <ServiceGrid
+            services={categoryData.services as any}
+            ctaHref="/contact"
+          />
         </div>
       </section>
 
@@ -199,8 +205,9 @@ const ServiceDetailPage: React.FC = () => {
               '🔒 Fully Insured & Bonded',
               '🌿 Eco-Friendly Products',
               '⏰ On-Time Every Time',
-              '🍁 Canadian-Owned Business',
+              '🍁 Local, Family-Owned Business',
               '📞 24/7 Support for Commercial Clients',
+
             ].map((guarantee) => (
               <div
                 key={guarantee}
@@ -215,8 +222,9 @@ const ServiceDetailPage: React.FC = () => {
 
       <CTABanner
         variant="yellow"
-        headline={`Ready for Professional ${pillar.name}?`}
-        subtext="Get your free, no-obligation estimate from Canada's most trusted building maintenance team."
+        headline={`Ready for Professional ${serviceData.title}?`}
+        subtext={`Get your free, no-obligation estimate from our trusted Vancouver Island team for ${categoryData.title}.`}
+
         primaryCTA={{ label: 'Get My Free Quote', href: '/contact' }}
         secondaryCTA={{ label: 'View All Services', href: '/services' }}
         showPhone

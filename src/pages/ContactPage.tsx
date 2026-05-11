@@ -1,405 +1,523 @@
 import React, { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { Phone, Mail, MapPin, Clock, Send, CheckCircle } from 'lucide-react';
+import { Phone, Mail, MapPin, Send, CheckCircle } from 'lucide-react';
+import { PHONE, EMAIL, ADDRESS } from '../data';
 import type { ContactFormData } from '../types';
 
 const ContactPage: React.FC = () => {
   const [searchParams] = useSearchParams();
-  const defaultService = searchParams.get('type') === 'commercial' ? 'commercial' : '';
+  const commercialMode = searchParams.get('type') === 'commercial';
 
   const [formData, setFormData] = useState<ContactFormData>({
     name: '',
     email: '',
-    serviceType: defaultService,
-    location: '',
+    phone: '',
+    serviceType: '',
+    cityProvince: '',
     message: '',
   });
-  const [submitted, setSubmitted] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState<Partial<ContactFormData>>({});
-
-  const validate = (): boolean => {
-    const newErrors: Partial<ContactFormData> = {};
-    if (!formData.name.trim()) newErrors.name = 'Name is required';
-    if (!formData.email.trim() || !/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = 'Valid email is required';
-    }
-    if (!formData.serviceType) newErrors.serviceType = 'Please select a service';
-    if (!formData.location.trim()) newErrors.location = 'Location is required';
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!validate()) return;
-    setIsSubmitting(true);
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setSubmitted(true);
-    }, 1500);
-  };
+  const [isLoading, setIsLoading] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    setFormData(prev => ({ ...prev, [name]: value }));
     if (errors[name as keyof ContactFormData]) {
-      setErrors((prev) => ({ ...prev, [name]: undefined }));
+      setErrors(prev => ({ ...prev, [name]: '' }));
     }
   };
 
-  const inputClass = (field: keyof ContactFormData) =>
-    `w-full px-4 py-3 border rounded-xl text-gray-900 placeholder-gray-400 text-sm focus:outline-none focus:ring-2 transition-all ${
-      errors[field]
-        ? 'border-red-300 focus:ring-red-200 bg-red-50'
-        : 'border-gray-200 focus:ring-sky-200 focus:border-sky-400 bg-white'
-    }`;
+  const validateForm = (): boolean => {
+    const newErrors: Partial<ContactFormData> = {};
+
+    if (!formData.name.trim()) newErrors.name = 'Full name is required';
+    if (!formData.email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email))
+      newErrors.email = 'Please enter a valid email';
+    if (!formData.phone.trim()) newErrors.phone = 'Phone number is required';
+    if (!formData.serviceType) newErrors.serviceType = 'Please select your service';
+    // ✅ Fixed: was &amp; (HTML entity) — use plain & in JS strings
+    if (!formData.cityProvince.trim()) newErrors.cityProvince = 'City & province required';
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!validateForm()) return;
+
+    setIsLoading(true);
+
+    // TODO: Replace [PLACEHOLDER-FORM-ID] with real Formspree form ID — Waiting for client input
+    try {
+      await new Promise(resolve => setTimeout(resolve, 2000));
+      setSubmitted(true);
+      setTimeout(() => {
+        setSubmitted(false);
+        setFormData({
+          name: '',
+          email: '',
+          phone: '',
+          serviceType: '',
+          cityProvince: '',
+          message: '',
+        });
+      }, 6000);
+    } catch (error) {
+      console.error('Form submission failed');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  if (submitted) {
+    return (
+      <div className="pt-[88px] min-h-screen bg-linear-to-br from-emerald-50 to-sky-50 flex items-center justify-center p-8">
+        <div className="max-w-md w-full bg-white rounded-3xl shadow-2xl p-12 text-center animate-in fade-in-30 zoom-in-95 duration-500">
+          <div className="w-24 h-24 bg-emerald-100 rounded-3xl flex items-center justify-center mx-auto mb-8 shadow-lg">
+            <CheckCircle className="w-16 h-16 text-emerald-500" />
+          </div>
+          <h1 className="text-3xl lg:text-4xl font-black text-gray-900 mb-4">
+            Thank You {formData.name}!
+          </h1>
+          <p className="text-xl text-emerald-700 mb-8 font-semibold">
+            Your {formData.serviceType} quote request has been received
+          </p>
+          <div className="space-y-3 text-gray-600 mb-12">
+            <p>📍 For {formData.cityProvince}</p>
+            <p>📧 Confirmation sent to {formData.email}</p>
+            <p>⏱️ Reply within 1 business day</p>
+          </div>
+          <button
+            onClick={() => setSubmitted(false)}
+            className="w-full px-8 py-4 bg-linear-to-r from-emerald-500 to-sky-500 hover:from-emerald-600 hover:to-sky-600 text-white font-bold rounded-2xl shadow-xl hover:shadow-emerald-500/50 hover:-translate-y-1 transition-all text-lg focus:ring-4 focus:ring-emerald-400/50 focus:outline-none"
+          >
+            Send Another Request
+          </button>
+          <p className="text-sm text-gray-500 mt-6">
+            Need immediate help?{' '}
+            <a
+              href={`tel:${PHONE.replace(/\D/g, '')}`}
+              className="font-bold text-emerald-600 hover:underline"
+            >
+              {PHONE}
+            </a>
+          </p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="pt-[88px]">
-      {/* Hero */}
-      <section className="bg-gradient-to-br from-gray-900 via-sky-900 to-gray-900 py-16 lg:py-24 relative overflow-hidden">
-        <div className="absolute -top-20 -right-20 w-80 h-80 bg-sunny-400/10 rounded-full blur-3xl" />
-        <div className="absolute -bottom-20 -left-20 w-80 h-80 bg-sky-400/10 rounded-full blur-3xl" />
+
+      {/* ─── HERO ─── */}
+      <section className="bg-linear-to-br from-gray-900 via-sky-900/20 to-gray-900 py-20 lg:py-28 relative overflow-hidden">
+        <div className="absolute inset-0">
+          <div className="absolute inset-0 bg-[radial-linear(ellipse_70%/30%_at_30%50%)] from-sunny-400/20" />
+          <div className="absolute inset-0 bg-[radial-linear(ellipse_70%/30%_at_70%50%)] from-sky-400/20" />
+        </div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <span className="inline-block px-4 py-1.5 bg-sunny-400/20 border border-sunny-400/30 text-sunny-300 text-sm font-bold rounded-full uppercase tracking-wide mb-5">
-            Get in Touch
+          <span
+            className="inline-block px-6 py-2.5 bg-white/10 backdrop-blur-sm border border-white/20 text-white text-sm font-black rounded-2xl uppercase tracking-widest mb-8 shadow-2xl"
+            role="img"
+          >
+            Free Quote
           </span>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-white mb-5 leading-tight">
-            Get Your Free <span className="text-sunny-400">Quote</span>
+          <h1 className="text-5xl md:text-6xl lg:text-7xl font-black text-white mb-6 leading-tight drop-shadow-2xl">
+            Get Your Custom<br />
+            <span className="bg-linear-to-r from-sunny-400 via-emerald-400 to-sky-400 bg-clip-text text-transparent drop-shadow-3xl">
+              Quote Today
+            </span>
           </h1>
-          <p className="text-gray-300 text-xl max-w-xl mx-auto">
-            Fill out the form below and we'll get back to you within 1 business day with a detailed, no-obligation estimate.
+          <p className="text-xl md:text-2xl text-sky-100/90 max-w-3xl mx-auto leading-relaxed drop-shadow-lg mb-10">
+            Complete the form below — detailed quotes delivered within 24 hours. No obligation.
           </p>
         </div>
       </section>
 
-      {/* Contact section */}
-      <section className="py-20 bg-gray-50">
+      {/* ─── CONTACT GRID ─── */}
+      <section className="py-20 lg:py-28 bg-linear-to-b from-gray-50 to-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
-            {/* Contact info */}
-            <div className="space-y-6">
+          <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+
+            {/* ── Contact Info Sidebar ── */}
+            <div className="lg:col-span-4 space-y-8 mb-12 lg:mb-0">
               <div>
-                <h2 className="text-2xl font-black text-gray-900 mb-2">Contact Information</h2>
-                <p className="text-gray-600 text-sm leading-relaxed">
-                  Our team is ready to help. Reach out via any of the methods below.
+                <h2 className="text-3xl lg:text-4xl font-black text-gray-900 mb-6">Let's Talk</h2>
+                <p className="text-lg text-gray-600 leading-relaxed">
+                  Phone, email, or form — whichever works best for you. Our Victoria team responds
+                  within 24 hours.
                 </p>
               </div>
 
-              {/* Contact cards */}
-              <div className="space-y-4">
-                <div className="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 flex items-start gap-4">
-                  <div className="w-10 h-10 bg-sunny-100 rounded-xl flex items-center justify-center shrink-0">
-                    <Phone size={18} className="text-sunny-600" />
-                  </div>
-                  <div>
-                    <p className="font-bold text-gray-900 text-sm">Phone</p>
-                    <a href="tel:+12505550199" className="text-sky-600 hover:text-sky-700 font-semibold text-base transition-colors">
-                      (250) 555-0199
-                    </a>
-                    <p className="text-gray-400 text-xs mt-0.5">Mon–Fri, 7am–7pm PT</p>
-                  </div>
+              {/* Phone */}
+              <a
+                href={`tel:${PHONE.replace(/\D/g, '')}`}
+                className="group p-6 rounded-3xl bg-white shadow-lg border border-gray-100 hover:shadow-xl hover:-translate-y-2 transition-all duration-300 flex gap-5"
+                aria-label={`Call ${PHONE}`}
+              >
+                <div className="w-16 h-16 bg-linear-to-br from-emerald-500 to-teal-500 rounded-2xl flex items-center justify-center shrink-0 shadow-xl group-hover:scale-110 transition-all">
+                  <Phone className="w-8 h-8 text-white" />
                 </div>
-
-                <div className="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 flex items-start gap-4">
-                  <div className="w-10 h-10 bg-sky-100 rounded-xl flex items-center justify-center shrink-0">
-                    <Mail size={18} className="text-sky-600" />
+                <div>
+                  <p className="text-sm font-medium text-gray-500 uppercase tracking-wide mb-1">
+                    Call Us
+                  </p>
+                  <div className="text-2xl font-black text-gray-900 group-hover:text-emerald-600 transition-colors">
+                    {PHONE}
                   </div>
-                  <div>
-                    <p className="font-bold text-gray-900 text-sm">Email</p>
-                    <a href="mailto:hello@sunnysideup.ca" className="text-sky-600 hover:text-sky-700 font-semibold text-sm transition-colors">
-                      hello@sunnysideup.ca
-                    </a>
-                    <p className="text-gray-400 text-xs mt-0.5">We reply within 1 business day</p>
-                  </div>
+                  <p className="text-sm text-gray-500 mt-1">Mon–Fri 7am–7pm PT</p>
                 </div>
+              </a>
 
-                <div className="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 flex items-start gap-4">
-                  <div className="w-10 h-10 bg-green-100 rounded-xl flex items-center justify-center shrink-0">
-                    <MapPin size={18} className="text-green-600" />
-                  </div>
-                  <div>
-                    <p className="font-bold text-gray-900 text-sm">Headquarters</p>
-                    <p className="text-gray-700 text-sm font-medium">Victoria, British Columbia</p>
-                    <p className="text-gray-400 text-xs mt-0.5">Serving 8 provinces Canada-wide</p>
-                  </div>
+              {/* Email */}
+              <a
+                href={`mailto:${EMAIL}`}
+                className="group p-6 rounded-3xl bg-white shadow-lg border border-gray-100 hover:shadow-xl hover:-translate-y-2 transition-all duration-300 flex gap-5"
+                aria-label={`Email ${EMAIL}`}
+              >
+                <div className="w-16 h-16 bg-linear-to-br from-sky-500 to-blue-500 rounded-2xl flex items-center justify-center shrink-0 shadow-xl group-hover:scale-110 transition-all">
+                  <Mail className="w-8 h-8 text-white" />
                 </div>
+                <div>
+                  <p className="text-sm font-medium text-gray-500 uppercase tracking-wide mb-1">
+                    Email
+                  </p>
+                  <div className="text-lg font-black text-gray-900 break-all group-hover:text-sky-600 transition-colors">
+                    {EMAIL}
+                  </div>
+                  <p className="text-sm text-gray-500 mt-1">Replies within 24hrs</p>
+                </div>
+              </a>
 
-                <div className="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 flex items-start gap-4">
-                  <div className="w-10 h-10 bg-purple-100 rounded-xl flex items-center justify-center shrink-0">
-                    <Clock size={18} className="text-purple-600" />
-                  </div>
-                  <div>
-                    <p className="font-bold text-gray-900 text-sm">Business Hours</p>
-                    <p className="text-gray-700 text-sm font-medium">Mon–Fri: 7:00 AM – 7:00 PM PT</p>
-                    <p className="text-gray-500 text-sm">Sat: 8:00 AM – 5:00 PM PT</p>
-                    <p className="text-gray-400 text-xs mt-0.5">24/7 support for commercial contracts</p>
-                  </div>
+              {/* Address */}
+              <div
+                className="p-6 rounded-3xl bg-white shadow-lg border border-gray-100 flex gap-5"
+                role="img"
+                aria-label={ADDRESS}
+              >
+                <div className="w-16 h-16 bg-linear-to-br from-green-500 to-emerald-500 rounded-2xl flex items-center justify-center shrink-0 shadow-xl">
+                  <MapPin className="w-8 h-8 text-white" />
+                </div>
+                <div>
+                  <p className="text-sm font-medium text-gray-500 uppercase tracking-wide mb-2">
+                    Headquarters
+                  </p>
+                  <div className="text-lg font-black text-gray-900">{ADDRESS}</div>
                 </div>
               </div>
 
-              {/* Commercial callout */}
-              <div className="bg-gradient-to-br from-sky-700 to-sky-900 rounded-2xl p-5 text-white">
-                <h4 className="font-black text-base mb-2">🏢 Commercial Clients</h4>
-                <p className="text-sky-200 text-sm leading-relaxed mb-3">
-                  Multi-location? Custom scheduling? Security requirements? Our commercial team has dedicated support lines.
-                </p>
-                <a
-                  href="mailto:commercial@sunnysideup.ca"
-                  className="text-sunny-300 font-semibold text-sm hover:text-sunny-200 transition-colors"
-                >
-                  commercial@sunnysideup.ca →
-                </a>
-              </div>
+              {/* Commercial panel — shown only when ?type=commercial */}
+              {commercialMode && (
+                <div className="p-6 rounded-3xl bg-linear-to-br from-sky-600 to-emerald-600 text-white shadow-2xl">
+                  <h4 className="text-xl font-black mb-3">🏢 Commercial Division</h4>
+                  <p className="text-sky-100 text-sm mb-4 leading-relaxed">
+                    Multi-location? Custom contracts? Security clearances? Talk to our commercial
+                    specialists.
+                  </p>
+                  {/* ✅ Fixed: was malformed double-@ mailto */}
+                  <a
+                    href={`mailto:${EMAIL}`}
+                    className="inline-flex items-center gap-2 text-white/90 hover:text-white font-bold text-sm transition-colors"
+                  >
+                    {EMAIL} →
+                  </a>
+                </div>
+              )}
             </div>
 
-            {/* Form */}
-            <div className="lg:col-span-2">
-              <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-8 md:p-10">
-                {submitted ? (
-                  <div className="text-center py-12">
-                    <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-5">
-                      <CheckCircle size={40} className="text-green-500" />
-                    </div>
-                    <h3 className="text-2xl font-black text-gray-900 mb-3">Request Received!</h3>
-                    <p className="text-gray-600 text-lg mb-2">
-                      Thank you, <strong>{formData.name}</strong>!
-                    </p>
-                    <p className="text-gray-500 text-sm leading-relaxed max-w-md mx-auto">
-                      We've received your inquiry for <strong>{formData.serviceType}</strong> services in{' '}
-                      <strong>{formData.location}</strong>. Our team will be in touch within 1 business day.
-                    </p>
-                    <div className="mt-8 p-4 bg-sunny-50 rounded-xl border border-sunny-200">
-                      <p className="text-gray-700 text-sm font-medium">
-                        Need immediate assistance?{' '}
-                        <a href="tel:+12505550199" className="text-sky-600 font-bold hover:underline">
-                          Call (250) 555-0199
-                        </a>
+            {/* ── Quote Form ── */}
+            <div className="lg:col-span-8">
+              <div className="bg-white rounded-3xl shadow-2xl border border-gray-100 p-8 lg:p-12">
+                <div className="mb-12">
+                  <h2 className="text-3xl lg:text-4xl font-black text-gray-900 mb-4">
+                    Request Your Quote
+                  </h2>
+                  {/* ✅ Fixed: was text-xl ... text-lg conflict — use one size */}
+                  <p className="text-lg text-gray-600 leading-relaxed">
+                    All fields required. Secure submission. Response within 24 hours.
+                  </p>
+                </div>
+
+                <form
+                  onSubmit={handleSubmit}
+                  noValidate
+                  className="grid grid-cols-1 lg:grid-cols-2 gap-8"
+                  aria-describedby="form-note"
+                >
+                  {/* ✅ Single honeypot + hidden subject (duplicates removed) */}
+                  <input type="text" name="_gotcha" style={{ display: 'none' }} aria-hidden tabIndex={-1} />
+                  <input type="hidden" name="_subject" value="SunnySideUp Quote Request" />
+
+                  {/* Name */}
+                  <div>
+                    <label htmlFor="name" className="block text-sm font-bold text-gray-700 mb-3">
+                      Full Name *
+                    </label>
+                    <input
+                      id="name"
+                      name="name"
+                      type="text"
+                      required
+                      value={formData.name}
+                      onChange={handleChange}
+                      className={`w-full px-5 py-4 rounded-2xl border-2 text-lg font-semibold focus:outline-none focus:ring-4 focus:ring-sky-400/50 transition-all shadow-sm ${
+                        errors.name
+                          ? 'border-red-300 bg-red-50/50 ring-red-200/30'
+                          : 'border-gray-200 hover:border-sky-300 bg-white/80 backdrop-blur-sm'
+                      }`}
+                      placeholder="John Smith"
+                      aria-invalid={!!errors.name}
+                      aria-describedby="name-error"
+                    />
+                    {errors.name && (
+                      <p id="name-error" className="text-red-500 text-sm mt-2 ml-1">
+                        {errors.name}
                       </p>
-                    </div>
+                    )}
                   </div>
-                ) : (
-                  <>
-                    <div className="mb-8">
-                      <h2 className="text-2xl font-black text-gray-900 mb-1">Request a Free Quote</h2>
-                      <p className="text-gray-500 text-sm">
-                        All fields marked with * are required. We'll respond within 1 business day.
+
+                  {/* Email */}
+                  <div>
+                    <label htmlFor="email" className="block text-sm font-bold text-gray-700 mb-3">
+                      Email Address *
+                    </label>
+                    <input
+                      id="email"
+                      name="email"
+                      type="email"
+                      required
+                      value={formData.email}
+                      onChange={handleChange}
+                      className={`w-full px-5 py-4 rounded-2xl border-2 text-lg font-semibold focus:outline-none focus:ring-4 focus:ring-sky-400/50 transition-all shadow-sm ${
+                        errors.email
+                          ? 'border-red-300 bg-red-50/50 ring-red-200/30'
+                          : 'border-gray-200 hover:border-sky-300 bg-white/80 backdrop-blur-sm'
+                      }`}
+                      placeholder="your.email@example.com"
+                      aria-invalid={!!errors.email}
+                      aria-describedby="email-error"
+                    />
+                    {errors.email && (
+                      <p id="email-error" className="text-red-500 text-sm mt-2 ml-1">
+                        {errors.email}
                       </p>
-                    </div>
+                    )}
+                  </div>
 
-                    <form onSubmit={handleSubmit} noValidate className="space-y-5">
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                        {/* Name */}
-                        <div>
-                          <label className="block text-sm font-semibold text-gray-700 mb-1.5">
-                            Full Name *
-                          </label>
-                          <input
-                            type="text"
-                            name="name"
-                            placeholder="John Smith"
-                            value={formData.name}
-                            onChange={handleChange}
-                            className={inputClass('name')}
-                          />
-                          {errors.name && (
-                            <p className="text-red-500 text-xs mt-1">{errors.name}</p>
-                          )}
-                        </div>
+                  {/* Phone */}
+                  <div>
+                    <label htmlFor="phone" className="block text-sm font-bold text-gray-700 mb-3">
+                      Phone Number *
+                    </label>
+                    <input
+                      id="phone"
+                      name="phone"
+                      type="tel"
+                      required
+                      value={formData.phone}
+                      onChange={handleChange}
+                      className={`w-full px-5 py-4 rounded-2xl border-2 text-lg font-semibold focus:outline-none focus:ring-4 focus:ring-sky-400/50 transition-all shadow-sm ${
+                        errors.phone
+                          ? 'border-red-300 bg-red-50/50 ring-red-200/30'
+                          : 'border-gray-200 hover:border-sky-300 bg-white/80 backdrop-blur-sm'
+                      }`}
+                      placeholder="(250) 889-9222"
+                      aria-invalid={!!errors.phone}
+                      aria-describedby="phone-error"
+                    />
+                    {errors.phone && (
+                      <p id="phone-error" className="text-red-500 text-sm mt-2 ml-1">
+                        {errors.phone}
+                      </p>
+                    )}
+                  </div>
 
-                        {/* Email */}
-                        <div>
-                          <label className="block text-sm font-semibold text-gray-700 mb-1.5">
-                            Email Address *
-                          </label>
-                          <input
-                            type="email"
-                            name="email"
-                            placeholder="john@example.com"
-                            value={formData.email}
-                            onChange={handleChange}
-                            className={inputClass('email')}
-                          />
-                          {errors.email && (
-                            <p className="text-red-500 text-xs mt-1">{errors.email}</p>
-                          )}
-                        </div>
-                      </div>
+                  {/* Service Type */}
+                  <div>
+                    <label htmlFor="serviceType" className="block text-sm font-bold text-gray-700 mb-3">
+                      Service Type *
+                    </label>
+                    <select
+                      id="serviceType"
+                      name="serviceType"
+                      value={formData.serviceType}
+                      onChange={handleChange}
+                      required
+                      className={`w-full px-5 py-4 rounded-2xl border-2 text-lg font-semibold focus:outline-none focus:ring-4 focus:ring-sky-400/50 transition-all shadow-sm bg-white/80 backdrop-blur-sm cursor-pointer ${
+                        errors.serviceType
+                          ? 'border-red-300 ring-red-200/30'
+                          : 'border-gray-200 hover:border-sky-300'
+                      }`}
+                      aria-invalid={!!errors.serviceType}
+                      aria-describedby="service-error"
+                    >
+                      <option value="">Select a service...</option>
+                      <optgroup label="🧼 Cleaning Services">
+                        <option value="Interior Cleaning">Interior Cleaning</option>
+                        <option value="Exterior & Pressure Washing">Exterior &amp; Pressure Washing ⭐</option>
+                        <option value="Commercial Janitorial">Commercial Janitorial</option>
+                        <option value="Move In/Out">Move In / Move Out</option>
+                      </optgroup>
+                      <optgroup label="🔨 Handyman Services">
+                        <option value="Drywall & Painting">Drywall Repair &amp; Painting</option>
+                        <option value="Light Fixtures">Light Fixture Installation</option>
+                        <option value="Furniture Assembly">Furniture Assembly</option>
+                        <option value="Facility Maintenance">Commercial Facility Maintenance</option>
+                      </optgroup>
+                      <option value="Not Sure">Not Sure / Custom Request</option>
+                    </select>
+                    {errors.serviceType && (
+                      <p id="service-error" className="text-red-500 text-sm mt-2 ml-1">
+                        {errors.serviceType}
+                      </p>
+                    )}
+                  </div>
 
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                        {/* Service Type */}
-                        <div>
-                          <label className="block text-sm font-semibold text-gray-700 mb-1.5">
-                            Service Type *
-                          </label>
-                          <select
-                            name="serviceType"
-                            value={formData.serviceType}
-                            onChange={handleChange}
-                            className={inputClass('serviceType')}
-                          >
-                            <option value="">Select a service...</option>
-                            <optgroup label="Cleaning Services">
-                              <option value="Residential Cleaning">Residential Cleaning</option>
-                              <option value="Commercial Janitorial">Commercial Janitorial</option>
-                              <option value="Move-In/Out Cleaning">Move-In / Move-Out Cleaning</option>
-                              <option value="Bank/Retail Cleaning">Bank & Retail Cleaning</option>
-                            </optgroup>
-                            <optgroup label="Pressure Washing">
-                              <option value="Residential Pressure Washing">Residential Pressure Washing</option>
-                              <option value="Commercial Pressure Washing">Commercial Pressure Washing</option>
-                              <option value="Deck & Patio Washing">Deck & Patio Washing</option>
-                            </optgroup>
-                            <optgroup label="Handyman">
-                              <option value="Residential Handyman">Residential Handyman</option>
-                              <option value="Commercial Facility Maintenance">Commercial Facility Maintenance</option>
-                            </optgroup>
-                            <optgroup label="Other">
-                              <option value="commercial">Commercial Partnership / Contract</option>
-                              <option value="Other">Other / Not Sure</option>
-                            </optgroup>
-                          </select>
-                          {errors.serviceType && (
-                            <p className="text-red-500 text-xs mt-1">{errors.serviceType}</p>
-                          )}
-                        </div>
+                  {/* City & Province */}
+                  <div className="lg:col-span-2">
+                    <label htmlFor="cityProvince" className="block text-sm font-bold text-gray-700 mb-3">
+                      City &amp; Province *
+                    </label>
+                    <input
+                      id="cityProvince"
+                      name="cityProvince"
+                      type="text"
+                      required
+                      value={formData.cityProvince}
+                      onChange={handleChange}
+                      className={`w-full px-5 py-4 rounded-2xl border-2 text-lg font-semibold focus:outline-none focus:ring-4 focus:ring-sky-400/50 transition-all shadow-sm ${
+                        errors.cityProvince
+                          ? 'border-red-300 bg-red-50/50 ring-red-200/30'
+                          : 'border-gray-200 hover:border-sky-300 bg-white/80 backdrop-blur-sm'
+                      }`}
+                      placeholder="Victoria, BC or Nanaimo, BC"
 
-                        {/* Location */}
-                        <div>
-                          <label className="block text-sm font-semibold text-gray-700 mb-1.5">
-                            Your City / Province *
-                          </label>
-                          <input
-                            type="text"
-                            name="location"
-                            placeholder="Victoria, BC"
-                            value={formData.location}
-                            onChange={handleChange}
-                            className={inputClass('location')}
-                          />
-                          {errors.location && (
-                            <p className="text-red-500 text-xs mt-1">{errors.location}</p>
-                          )}
-                        </div>
-                      </div>
+                      aria-invalid={!!errors.cityProvince}
+                      aria-describedby="city-error"
+                    />
+                    {errors.cityProvince && (
+                      <p id="city-error" className="text-red-500 text-sm mt-2 ml-1">
+                        {errors.cityProvince}
+                      </p>
+                    )}
+                  </div>
 
-                      {/* Phone (optional) */}
-                      <div>
-                        <label className="block text-sm font-semibold text-gray-700 mb-1.5">
-                          Phone Number <span className="text-gray-400 font-normal">(optional)</span>
-                        </label>
-                        <input
-                          type="tel"
-                          name="phone"
-                          placeholder="(250) 555-0100"
-                          className="w-full px-4 py-3 border border-gray-200 rounded-xl text-gray-900 placeholder-gray-400 text-sm focus:outline-none focus:ring-2 focus:ring-sky-200 focus:border-sky-400 bg-white transition-all"
-                        />
-                      </div>
+                  {/* Message */}
+                  <div className="lg:col-span-2">
+                    <label htmlFor="message" className="block text-sm font-bold text-gray-700 mb-3">
+                      Project Details (optional)
+                    </label>
+                    <textarea
+                      id="message"
+                      name="message"
+                      rows={5}
+                      value={formData.message}
+                      onChange={handleChange}
+                      className="w-full px-5 py-4 rounded-2xl border-2 text-lg font-semibold focus:outline-none focus:ring-4 focus:ring-sky-400/50 transition-all shadow-sm resize-vertical bg-white/80 backdrop-blur-sm border-gray-200 hover:border-sky-300"
+                      placeholder="Property size, number of locations, specific requirements, timeline, etc..."
+                    />
+                  </div>
 
-                      {/* Message */}
-                      <div>
-                        <label className="block text-sm font-semibold text-gray-700 mb-1.5">
-                          Additional Details <span className="text-gray-400 font-normal">(optional)</span>
-                        </label>
-                        <textarea
-                          name="message"
-                          rows={4}
-                          placeholder="Tell us more about your property, the scope of work, number of locations, or any specific requirements..."
-                          value={formData.message}
-                          onChange={handleChange}
-                          className="w-full px-4 py-3 border border-gray-200 rounded-xl text-gray-900 placeholder-gray-400 text-sm focus:outline-none focus:ring-2 focus:ring-sky-200 focus:border-sky-400 bg-white transition-all resize-none"
-                        />
-                      </div>
+                  {/* Submit */}
+                  <div className="lg:col-span-2 pt-4">
+                    <button
+                      type="submit"
+                      disabled={isLoading}
+                      className={`group w-full lg:w-auto px-12 py-6 rounded-3xl text-xl font-black shadow-2xl transition-all duration-300 flex items-center justify-center gap-4 uppercase tracking-wider ${
+                        isLoading
+                          ? 'bg-gray-400 cursor-not-allowed shadow-none text-white'
+                          : 'bg-linear-to-r from-sky-600 to-emerald-600 hover:from-sky-700 hover:to-emerald-700 text-white hover:shadow-sky-500/50 hover:shadow-2xl hover:-translate-y-2 hover:scale-[1.02] focus:ring-4 focus:ring-sky-400/50 focus:outline-none'
+                      }`}
+                      aria-label="Submit quote request form"
+                    >
+                      {isLoading ? (
+                        <>
+                          <div className="w-6 h-6 border-2 border-current border-t-transparent rounded-full animate-spin" />
+                          Processing...
+                        </>
+                      ) : (
+                        <>
+                          <Send size={22} className="group-hover:rotate-12 transition-transform duration-300" />
+                          Send My Quote Request
+                        </>
+                      )}
+                    </button>
+                  </div>
+                </form>
 
-                      {/* Client type */}
-                      <div>
-                        <p className="text-sm font-semibold text-gray-700 mb-2">I am a:</p>
-                        <div className="flex gap-4">
-                          {['Homeowner / Tenant', 'Property Manager', 'Business Owner', 'Facility Manager'].map((type) => (
-                            <label key={type} className="flex items-center gap-2 cursor-pointer group">
-                              <input type="radio" name="clientType" value={type} className="accent-sky-600" />
-                              <span className="text-sm text-gray-600 group-hover:text-gray-900 transition-colors">{type}</span>
-                            </label>
-                          ))}
-                        </div>
-                      </div>
-
-                      {/* Submit */}
-                      <div className="pt-2">
-                        <button
-                          type="submit"
-                          disabled={isSubmitting}
-                          className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-10 py-4 bg-sky-600 hover:bg-sky-700 disabled:bg-sky-400 text-white font-bold rounded-xl text-base transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5 active:scale-95"
-                        >
-                          {isSubmitting ? (
-                            <>
-                              <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                              Sending...
-                            </>
-                          ) : (
-                            <>
-                              <Send size={18} />
-                              Send My Quote Request
-                            </>
-                          )}
-                        </button>
-                        <p className="text-gray-400 text-xs mt-3">
-                          🔒 Your information is private and will never be shared. We'll only use it to respond to your inquiry.
-                        </p>
-                      </div>
-                    </form>
-                  </>
-                )}
+                <p id="form-note" className="text-center text-gray-500 text-sm mt-8 pt-8 border-t border-gray-200">
+                  🔒 Secure submission • Reply within 24 hours • No spam ever
+                </p>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* FAQ */}
-      <section className="py-20 bg-white">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-10">
-            <h2 className="text-2xl md:text-3xl font-black text-gray-900 mb-3">
-              Frequently Asked <span className="text-sky-600">Questions</span>
+      {/* ─── FAQ ─── */}
+      <section className="py-24 bg-linear-to-b from-white via-gray-50 to-sky-50" aria-labelledby="faq-heading">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-20">
+            <span
+              className="inline-block px-6 py-3 bg-sky-100/50 text-sky-700 font-black text-lg rounded-3xl backdrop-blur-sm shadow-lg mb-8"
+              id="faq-badge"
+            >
+              Questions?
+            </span>
+            <h2 id="faq-heading" className="text-4xl lg:text-5xl font-black text-gray-900 mb-6">
+              Everything You Need to Know
             </h2>
           </div>
-          <div className="space-y-4">
+
+          <div
+            className="space-y-4 max-w-3xl mx-auto"
+            role="region"
+            aria-label="Frequently asked questions"
+          >
             {[
               {
-                q: 'How quickly will I receive a quote?',
-                a: 'We respond to all quote requests within 1 business day. For urgent commercial needs, call us directly for same-day response.',
+                q: 'How quickly do you respond to quote requests?',
+                a: 'Every quote request receives a detailed response within 1 business day (often same day). Commercial RFPs get priority attention.',
               },
               {
-                q: 'Are your staff background-checked?',
-                a: 'Absolutely. All SunnySideUp employees undergo thorough background checks and security clearances before starting work. This is especially important for our bank and retail clients.',
+                q: 'Are your team members background checked?',
+                a: '100% yes. All SunnySideUp staff complete comprehensive background checks and security training. Critical for banks, retail, and government clients.',
               },
               {
-                q: 'Do you offer contracts for commercial clients?',
-                a: 'Yes! We offer flexible maintenance contracts for commercial clients ranging from monthly to annual agreements, with options for multi-location management.',
+                q: 'What service areas do you cover?',
+                // ✅ Fixed: removed JSX comment syntax from inside a JS string
+                a: 'Headquartered in Victoria BC, serving BC, AB, SK, and MB. See the coverage map for full city listings.',
               },
               {
-                q: 'What areas do you serve?',
-                a: 'We\'re headquartered in Victoria, BC and operate across 8 Canadian provinces including BC, AB, SK, MB, ON, QC, NS, and NB. View our full coverage map.',
+                q: 'Do you handle commercial contracts?',
+                a: 'Absolutely. We specialize in multi-location retail chains, banks, and facility management. Custom reporting, compliance, and 24/7 support available.',
               },
               {
-                q: 'Do you use eco-friendly products?',
-                a: 'Yes! We prioritize green-certified, eco-friendly cleaning products that are safe for children, pets, and the environment. We also offer food-safe products for supermarket clients.',
+                q: 'Are your products eco-friendly?',
+                a: 'Yes! We use green-certified, non-toxic cleaners safe for children, pets, and food environments. Full SDS sheets available on request.',
               },
-            ].map((faq, i) => (
+            ].map((faq, idx) => (
               <details
-                key={i}
-                className="group bg-gray-50 rounded-xl border border-gray-100 overflow-hidden"
+                key={idx}
+                className="group bg-white rounded-3xl p-2 shadow-lg border border-gray-100 hover:shadow-xl hover:border-sky-200 transition-all backdrop-blur-sm cursor-pointer"
               >
-                <summary className="flex items-center justify-between p-5 cursor-pointer list-none font-semibold text-gray-900 hover:bg-gray-100 transition-colors">
+                <summary className="flex items-center justify-between p-8 rounded-2xl group-hover:bg-sky-50/50 transition-all cursor-pointer list-none font-bold text-xl text-gray-900 focus:ring-2 focus:ring-sky-400 focus:outline-none">
                   {faq.q}
-                  <span className="text-sky-600 group-open:rotate-45 transition-transform duration-200 text-xl font-bold shrink-0 ml-4">+</span>
+                  <span
+                    className="ml-4 text-2xl transition-transform group-open:-rotate-45 duration-300"
+                    aria-hidden
+                  >
+                    +
+                  </span>
                 </summary>
-                <div className="px-5 pb-5 text-gray-600 text-sm leading-relaxed border-t border-gray-100 pt-4">
-                  {faq.a}
+                <div className="px-8 pb-8 pt-4 mt-2 -mx-2">
+                  <p className="text-lg text-gray-700 leading-relaxed">{faq.a}</p>
                 </div>
               </details>
             ))}

@@ -79,7 +79,7 @@ const BeforeAfterSlider: React.FC<BeforeAfterSliderProps> = ({
         {/* After image (full width, underneath) */}
         <img
           src={after}
-          alt="After"
+          alt="After pressure washing by SunnySideUp - clean surface"
           className="absolute inset-0 w-full h-full object-cover"
           draggable={false}
         />
@@ -91,7 +91,7 @@ const BeforeAfterSlider: React.FC<BeforeAfterSliderProps> = ({
         >
           <img
             src={before}
-            alt="Before"
+          alt="Before pressure washing - grimy surface"
             className="absolute inset-0 w-full h-full object-cover"
             style={{ width: `${100 / (sliderPos / 100)}%`, maxWidth: 'none' }}
             draggable={false}

@@ -8,12 +8,23 @@ import { viteSingleFile } from "vite-plugin-singlefile";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// https://vite.dev/config/
-export default defineConfig({
-  plugins: [react(), tailwindcss(), viteSingleFile()],
-  resolve: {
-    alias: {
-      "@": path.resolve(__dirname, "src"),
+export default defineConfig(({ mode }) => {
+  const isProd = mode === 'production';
+
+  return {
+    plugins: [
+      react(),
+      tailwindcss(),
+      // ✅ Only use viteSingleFile for production builds
+      ...(isProd ? [viteSingleFile()] : []),
+    ],
+    resolve: {
+      alias: {
+        "@": path.resolve(__dirname, "src"),
+      },
     },
-  },
+    server: {
+      port: 5177,
+    },
+  };3
 });

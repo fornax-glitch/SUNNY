@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, ChevronDown, Phone, Sun } from 'lucide-react';
+import { Menu, X, ChevronDown, Phone } from 'lucide-react';
 
 interface DropdownItem {
   label: string;
@@ -10,9 +10,10 @@ interface DropdownItem {
 
 const serviceDropdown: DropdownItem[] = [
   { label: 'Professional Cleaning', href: '/services/cleaning', icon: '✨' },
-  { label: 'Pressure Washing', href: '/services/pressure-washing', icon: '💧' },
+  { label: 'Pressure Washing', href: '/services/cleaning/pressure-washing', icon: '💧' },
   { label: 'Handyman Services', href: '/services/handyman', icon: '🔨' },
 ];
+
 
 const Navbar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -50,40 +51,39 @@ const Navbar: React.FC = () => {
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled || mobileOpen
           ? 'bg-white shadow-lg border-b border-gray-100'
-          : 'bg-white/95 backdrop-blur-sm shadow-sm'
+          : 'bg-white shadow-sm'
       }`}
     >
       {/* Top bar */}
       <div className="bg-sky-700 text-white text-sm py-1.5 px-4">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <span className="flex items-center gap-2">
-            <span>📍</span>
-            <span className="hidden sm:inline">Headquartered in Victoria, BC – Serving Canada Nationwide</span>
-            <span className="sm:hidden">Victoria, BC – Canada Wide</span>
+<span>📍</span>
+<span className="hidden sm:inline">Headquartered in Victoria, BC – Serving Vancouver Island</span>
+            <span className="sm:hidden">Victoria, BC – Vancouver Island</span>
           </span>
-          <a href="tel:+12505550199" className="flex items-center gap-1.5 hover:text-sunny-300 transition-colors font-medium">
+          <a href="tel:+12508899222" className="flex items-center gap-1.5 hover:text-sunny-300 transition-colors font-medium">
             <Phone size={13} />
-            <span>(250) 555-0199</span>
+            <span>(250) 889-9222</span>
           </a>
         </div>
       </div>
 
       {/* Main navbar */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-between h-18">
+
+
+
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2.5 group">
-            <div className="w-10 h-10 bg-sunny-400 rounded-full flex items-center justify-center shadow-md group-hover:bg-sunny-500 transition-colors">
-              <Sun size={22} className="text-white" strokeWidth={2.5} />
-            </div>
-            <div className="leading-tight">
-              <div className="text-gray-900 font-black text-lg tracking-tight leading-none">
-                SunnySide<span className="text-sunny-500">Up</span>
-              </div>
-              <div className="text-sky-600 text-xs font-semibold tracking-wide uppercase leading-none mt-0.5">
-                Building Maintenance
-              </div>
-            </div>
+            <span className="bg-white rounded-lg p-1 flex items-center justify-center">
+              <img
+                src="/images/Website-Logo.png"
+                alt="SunnySideUp"
+                className="h-10 sm:h-16 lg:h-14.4 w-auto "
+              />
+            </span>
           </Link>
 
           {/* Desktop Nav */}

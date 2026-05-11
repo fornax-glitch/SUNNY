@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Sun, Phone, Mail, MapPin, Send } from 'lucide-react';
+import { Phone, Mail, MapPin, Send } from 'lucide-react';
 
 const Footer: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -32,20 +32,14 @@ const Footer: React.FC = () => {
           {/* Brand column */}
           <div className="lg:col-span-1">
             <Link to="/" className="flex items-center gap-2.5 mb-5">
-              <div className="w-10 h-10 bg-sunny-400 rounded-full flex items-center justify-center">
-                <Sun size={20} className="text-white" strokeWidth={2.5} />
-              </div>
-              <div>
-                <div className="text-white font-black text-lg leading-none">
-                  SunnySide<span className="text-sunny-400">Up</span>
-                </div>
-                <div className="text-sky-400 text-xs font-semibold tracking-wide uppercase leading-none mt-0.5">
-                  Building Maintenance
-                </div>
-              </div>
+              <img
+                src="/images/Website-Logo.png"
+                alt="SunnySideUp"
+                className="h-10 w-auto"
+              />
             </Link>
             <p className="text-gray-400 text-sm leading-relaxed mb-5">
-              Victoria's trusted building maintenance company for 25+ years. Residential and commercial services across Canada.
+Victoria's trusted building maintenance company for 25+ years. Residential and commercial services across Vancouver Island.
             </p>
             <div className="flex gap-3">
               <a href="#" className="w-9 h-9 bg-gray-800 hover:bg-sky-600 rounded-lg flex items-center justify-center transition-colors text-sm font-bold">
@@ -66,10 +60,10 @@ const Footer: React.FC = () => {
             <ul className="space-y-3">
               {[
                 { label: 'Residential Cleaning', href: '/services/cleaning' },
-                { label: 'Commercial Janitorial', href: '/services/cleaning' },
-                { label: 'Pressure Washing', href: '/services/pressure-washing' },
+                { label: 'Commercial Janitorial', href: '/services/cleaning/janitorial' },
+                { label: 'Pressure Washing', href: '/services/cleaning/pressure-washing' },
                 { label: 'Handyman Services', href: '/services/handyman' },
-                { label: 'Deck & Patio Washing', href: '/services/pressure-washing' },
+                { label: 'Deck & Patio Washing', href: '/services/cleaning/pressure-washing' },
                 { label: 'Commercial Facilities', href: '/services/handyman' },
               ].map((item) => (
                 <li key={item.label}>
@@ -90,19 +84,19 @@ const Footer: React.FC = () => {
             <h4 className="text-white font-bold text-base mb-5 uppercase tracking-wide">Contact</h4>
             <ul className="space-y-4">
               <li>
-                <a href="tel:+12505550199" className="flex items-start gap-3 text-gray-400 hover:text-sunny-400 transition-colors text-sm">
+                <a href="tel:+12508899222" className="flex items-start gap-3 text-gray-400 hover:text-sunny-400 transition-colors text-sm">
                   <Phone size={15} className="mt-0.5 shrink-0 text-sunny-400" />
                   <div>
-                    <div className="font-semibold text-white">(250) 555-0199</div>
+                    <div className="font-semibold text-white">(250) 889-9222</div>
                     <div className="text-xs">Mon–Fri 7am–7pm PT</div>
                   </div>
                 </a>
               </li>
               <li>
-                <a href="mailto:hello@sunnysideup.ca" className="flex items-start gap-3 text-gray-400 hover:text-sunny-400 transition-colors text-sm">
+                <a href="mailto:sunnysideup1402@outlook.com" className="flex items-start gap-3 text-gray-400 hover:text-sunny-400 transition-colors text-sm">
                   <Mail size={15} className="mt-0.5 shrink-0 text-sunny-400" />
                   <div>
-                    <div className="font-semibold text-white">hello@sunnysideup.ca</div>
+                    <div className="font-semibold text-white">sunnysideup1402@outlook.com</div>
                     <div className="text-xs">We reply within 1 business day</div>
                   </div>
                 </a>
@@ -112,7 +106,7 @@ const Footer: React.FC = () => {
                   <MapPin size={15} className="mt-0.5 shrink-0 text-sunny-400" />
                   <div>
                     <div className="font-semibold text-white">Victoria, BC (HQ)</div>
-                    <div className="text-xs">Serving Canada Nationwide</div>
+<div className="text-xs">Serving Vancouver Island</div>
                   </div>
                 </div>
               </li>
@@ -121,12 +115,12 @@ const Footer: React.FC = () => {
             <div className="mt-6">
               <h5 className="text-white font-bold text-sm mb-3 uppercase tracking-wide">Service Areas</h5>
               <div className="flex flex-wrap gap-2">
-                {['BC', 'AB', 'SK', 'MB', 'ON', 'QC', 'NS', 'NB'].map((prov) => (
+                {['Victoria', 'Saanich', 'Langford', 'Nanaimo', 'Duncan', 'Courtenay'].map((city) => (
                   <span
-                    key={prov}
+                    key={city}
                     className="px-2 py-1 bg-gray-800 text-gray-300 text-xs font-bold rounded border border-gray-700"
                   >
-                    {prov}
+                    {city}
                   </span>
                 ))}
               </div>

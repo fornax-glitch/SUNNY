@@ -35,7 +35,7 @@ const CoveragePage: React.FC = () => {
   return (
     <div className="pt-[88px]">
       {/* Hero */}
-      <section className="bg-gradient-to-br from-gray-900 via-sky-900 to-gray-900 py-20 lg:py-28 relative overflow-hidden">
+      <section className="bg-linear-to-br from-gray-900 via-sky-900 to-gray-900 py-20 lg:py-28 relative overflow-hidden">
         <div className="absolute inset-0 opacity-5">
           {/* Canada map-inspired decorative dots */}
           {Array.from({ length: 30 }).map((_, i) => (
@@ -56,18 +56,18 @@ const CoveragePage: React.FC = () => {
           </span>
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-white mb-5 leading-tight">
             Victoria Roots.<br />
-            <span className="text-sunny-400">Canada-Wide Reach.</span>
+            <span className="text-sunny-400">Island-First Service.</span>
           </h1>
           <p className="text-gray-300 text-xl max-w-2xl mx-auto mb-8">
-            From our headquarters in Victoria, BC, we serve residential and commercial clients across 8 Canadian provinces.
+            From our Victoria HQ, we bring trusted building maintenance to homes and businesses across Vancouver Island.
           </p>
           <div className="flex flex-wrap justify-center gap-3">
-            {['BC', 'AB', 'SK', 'MB', 'ON', 'QC', 'NS', 'NB'].map((prov) => (
+            {['Vancouver Island', 'Victoria HQ'].map((label) => (
               <span
-                key={prov}
+                key={label}
                 className="px-4 py-2 bg-white/10 backdrop-blur-sm text-white text-sm font-bold rounded-lg border border-white/20"
               >
-                🍁 {prov}
+                ✨ {label}
               </span>
             ))}
           </div>
@@ -92,12 +92,13 @@ const CoveragePage: React.FC = () => {
           </div>
 
           {/* Simplified Canada layout */}
-          <div className="bg-gradient-to-b from-sky-50 to-blue-50 rounded-3xl p-8 border border-sky-100 shadow-inner">
+          <div className="bg-linear-to-b from-sky-50 to-blue-50 rounded-3xl p-8 border border-sky-100 shadow-inner">
             {/* Province grid layout mimicking Canada geography */}
             <div className="max-w-5xl mx-auto">
               {/* Western provinces */}
               <div className="mb-4">
-                <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3 text-center">Western Canada</p>
+                <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3 text-center">Vancouver Island</p>
+
                 <div className="flex justify-center gap-4">
                   {primary.map((area) => (
                     <div
@@ -138,7 +139,8 @@ const CoveragePage: React.FC = () => {
 
               {/* Prairie provinces */}
               <div className="mb-4">
-                <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3 text-center">Prairie & Central Canada</p>
+                <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3 text-center">Vancouver Island Communities</p>
+
                 <div className="flex justify-center gap-4">
                   {secondary.map((area) => (
                     <div
@@ -171,7 +173,8 @@ const CoveragePage: React.FC = () => {
 
               {/* Eastern provinces */}
               <div>
-                <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3 text-center">Eastern Canada</p>
+                <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3 text-center">Vancouver Island Communities</p>
+
                 <div className="flex justify-center gap-4 flex-wrap">
                   {tertiary.map((area) => (
                     <div
@@ -261,7 +264,7 @@ const CoveragePage: React.FC = () => {
               Ask About Your Area
               <ArrowRight size={16} />
             </Link>
-            <a href="tel:+12505550199" className="btn-outline-yellow">
+            <a href="tel:+12508899222" className="btn-outline-yellow">
               Call Us Directly
             </a>
           </div>
@@ -273,14 +276,15 @@ const CoveragePage: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-8">
             <h3 className="text-xl font-black text-gray-900">
-              The Advantage of a <span className="text-sky-600">National Partner</span>
+The Advantage of a <span className="text-sky-600">Local Partner</span>
             </h3>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
               { icon: '🗂️', title: 'Single Point of Contact', desc: 'One account manager handles all your locations across provinces. No more juggling multiple vendors.' },
               { icon: '📊', title: 'Unified Reporting', desc: 'Consolidated service reports and billing across all your locations for simplified bookkeeping and compliance.' },
-              { icon: '⚡', title: 'Rapid Deployment', desc: 'Opening a new location? Our national network means we can mobilize a trained team within days, not weeks.' },
+              { icon: '⚡', title: 'Rapid Deployment', desc: 'Need support for a new location? Our Vancouver Island teams coordinate quickly to get you scheduled within days.' },
+
             ].map((item) => (
               <div key={item.title} className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 flex gap-4">
                 <div className="text-3xl shrink-0">{item.icon}</div>
@@ -296,8 +300,11 @@ const CoveragePage: React.FC = () => {
 
       <CTABanner
         variant="yellow"
-        headline="Ready to Partner with Canada's Most Trusted Maintenance Team?"
-        subtext="Get a custom quote for your location — or all of them. We make nationwide simple."
+        badge="Ready to Partner?"
+        headline="Ready to Partner with a Vancouver Island Maintenance Team?"
+
+        subtext="Get a custom quote for your location — or all of them. We make Vancouver Island service simple."
+
         primaryCTA={{ label: 'Get a Free Quote', href: '/contact' }}
         showPhone
       />
@@ -306,3 +313,4 @@ const CoveragePage: React.FC = () => {
 };
 
 export default CoveragePage;
+

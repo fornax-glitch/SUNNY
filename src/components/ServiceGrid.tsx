@@ -2,13 +2,15 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { CheckCircle } from 'lucide-react';
 import type { ServiceItem } from '../types';
+import type { NestedService } from '../types/services';
 
 interface ServiceGridProps {
-  services: ServiceItem[];
+  services: Array<Pick<ServiceItem, 'id' | 'icon' | 'title' | 'description' | 'features' | 'category'>>;
   columns?: 2 | 3;
   showCategory?: boolean;
   ctaHref?: string;
 }
+
 
 const categoryBadge: Record<string, string> = {
   residential: 'bg-sunny-100 text-sunny-700',
@@ -30,17 +32,17 @@ const ServiceGrid: React.FC<ServiceGridProps> = ({
 }) => {
   return (
     <div
-      className={`grid grid-cols-1 sm:grid-cols-2 ${
-        columns === 3 ? 'lg:grid-cols-3' : 'lg:grid-cols-2'
-      } gap-6`}
-    >
+  className={`max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 ${
+    columns === 3 ? 'lg:grid-cols-3' : 'lg:grid-cols-2'
+  } gap-6 justify-items-center`}
+>
       {services.map((service) => (
         <div
           key={service.id}
-          className="group bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 overflow-hidden"
+          className="group w-full max-w-md bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 overflow-hidden"
         >
           {/* Card top accent */}
-          <div className="h-1 bg-gradient-to-r from-sunny-400 to-sky-500" />
+          <div className="h-1 bg-linear-to-r from-sunny-400 to-sky-500" />
 
           <div className="p-6">
             {/* Icon and category */}

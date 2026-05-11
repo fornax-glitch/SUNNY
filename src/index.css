@@ -72,16 +72,16 @@
     @apply transition-all duration-300 hover:-translate-y-1 hover:shadow-xl;
   }
 
-  .gradient-yellow {
-    @apply bg-gradient-to-br from-sunny-400 to-sunny-500;
+  .linear-yellow {
+    @apply bg-linear-to-br from-sunny-400 to-sunny-500;
   }
 
-  .gradient-blue {
-    @apply bg-gradient-to-br from-sky-600 to-sky-800;
+  .linear-blue {
+    @apply bg-linear-to-br from-sky-600 to-sky-800;
   }
 
-  .gradient-dark {
-    @apply bg-gradient-to-br from-gray-900 to-gray-800;
+  .linear-dark {
+    @apply bg-linear-to-br from-gray-900 to-gray-800;
   }
 }
 

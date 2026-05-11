@@ -82,7 +82,7 @@ const CTABanner: React.FC<CTABannerProps> = ({
             )}
             {showPhone && (
               <a
-                href="tel:+12505550199"
+                href="tel:+12508899222"
                 className={`inline-flex items-center gap-2 px-8 py-4 rounded-xl font-bold text-base border-2 transition-all hover:-translate-y-0.5 ${
                   variant === 'yellow'
                     ? 'border-amber-900/30 text-amber-900 hover:bg-amber-900/10'
@@ -90,7 +90,7 @@ const CTABanner: React.FC<CTABannerProps> = ({
                 }`}
               >
                 <Phone size={18} />
-                (250) 555-0199
+                (250) 889-9222
               </a>
             )}
           </div>

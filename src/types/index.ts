@@ -4,7 +4,7 @@ export interface ServiceItem {
   title: string;
   description: string;
   features: string[];
-  category: 'residential' | 'commercial' | 'both';
+  category: 'residential' | 'commercial' | 'both' | 'interior' | 'exterior';
 }
 
 export interface ServicePillar {
@@ -61,8 +61,9 @@ export interface BeforeAfterItem {
 export interface ContactFormData {
   name: string;
   email: string;
+  phone: string;
   serviceType: string;
-  location: string;
+  cityProvince: string;
   message?: string;
 }
 
@@ -72,3 +73,4 @@ export interface TrustedClient {
   category: string;
   placeholder: string;
 }
+

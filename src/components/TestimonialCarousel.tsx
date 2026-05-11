@@ -94,7 +94,7 @@ const TestimonialCarousel: React.FC<TestimonialCarouselProps> = ({
 
           {/* Author */}
           <div className="flex items-center gap-4 pt-5 border-t border-gray-100">
-            <div className="w-12 h-12 bg-gradient-to-br from-sky-100 to-sunny-100 rounded-full flex items-center justify-center text-2xl">
+            <div className="w-12 h-12 bg-linear-to-br from-sky-100 to-sunny-100 rounded-full flex items-center justify-center text-2xl">
               {current.avatar}
             </div>
             <div>
