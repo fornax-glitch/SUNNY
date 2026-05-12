@@ -197,9 +197,9 @@ Victoria's trusted building maintenance company for 25+ years. Residential and c
           <div className="flex flex-col md:flex-row items-center justify-between gap-3 text-sm text-gray-500">
             <p>© {new Date().getFullYear()} SunnySideUp Building Maintenance. All rights reserved.</p>
             <div className="flex gap-5">
-              <a href="#" className="hover:text-gray-300 transition-colors">Privacy Policy</a>
-              <a href="#" className="hover:text-gray-300 transition-colors">Terms of Service</a>
-              <a href="#" className="hover:text-gray-300 transition-colors">Accessibility</a>
+              <a href="/privacy-policy" className="hover:text-gray-300 transition-colors">Privacy Policy</a>
+              <a href="/terms-of-service" className="hover:text-gray-300 transition-colors">Terms of Service</a>
+              <a href="/accessibility" className="hover:text-gray-300 transition-colors">Accessibility</a>
             </div>
           </div>
         </div>

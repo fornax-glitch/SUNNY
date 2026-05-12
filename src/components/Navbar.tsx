@@ -9,10 +9,10 @@ interface DropdownItem {
 }
 
 const serviceDropdown: DropdownItem[] = [
-  { label: 'Professional Cleaning', href: '/services/cleaning', icon: '✨' },
-  { label: 'Pressure Washing', href: '/services/cleaning/pressure-washing', icon: '💧' },
+  { label: 'Cleaning Services', href: '/services/cleaning', icon: '✨' },
   { label: 'Handyman Services', href: '/services/handyman', icon: '🔨' },
 ];
+
 
 
 const Navbar: React.FC = () => {

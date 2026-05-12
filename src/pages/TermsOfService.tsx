@@ -1,10 +1,11 @@
 import React from 'react';
-import  Navbar  from '../components/Navbar';
-import  Footer  from '../components/Footer';
+import Navbar from '../components/Navbar';
 import { Phone, Mail } from 'lucide-react';
 import { LEGAL_NAME, PHONE, EMAIL, ADDRESS } from '../data';
 
+
 const TermsOfService: React.FC = () => {
+
   const lastUpdated = new Date().toLocaleDateString('en-CA', {
     year: 'numeric',
     month: 'long',
@@ -239,10 +240,10 @@ const TermsOfService: React.FC = () => {
           </section>
         </div>
       </div>
-      <Footer />
     </>
   );
 };
 
 export default TermsOfService;
+
 

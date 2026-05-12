@@ -6,45 +6,50 @@ import { STATS } from '../data';
 const values = [
   {
     icon: <Award size={24} />,
-    title: 'Excellence in Every Detail',
-    desc: 'Exceptional quality across Vancouver Island, from Victoria homes to Nanaimo businesses.',
-
+    title: 'Reliable by Default',
+    desc: 'We show up on schedule, communicate clearly, and deliver consistent service you can depend on.',
     color: 'bg-sunny-50 text-sunny-600',
-
   },
   {
     icon: <Heart size={24} />,
-    title: 'Client-First Approach',
-    desc: 'Your satisfaction drives everything. We listen and adapt because we genuinely care.',
+    title: 'Details Matter',
+    desc: 'From entryways to hard-to-reach areas, we focus on the details people notice.',
     color: 'bg-sky-50 text-sky-600',
   },
   {
     icon: <Users size={24} />,
-    title: 'Trusted Professional Teams',
-    desc: 'Background-checked, vetted professionals building long-term relationships.',
+    title: 'Built Around Your Property',
+    desc: 'Every building operates differently, so we tailor service plans around your schedule and operational needs.',
     color: 'bg-emerald-50 text-emerald-600',
   },
   {
     icon: <Leaf size={24} />,
-    title: 'Sustainable Vancouver Island',
-    desc: 'Eco-friendly practices protecting families, businesses, and our beautiful Vancouver Island landscapes.',
-
+    title: 'Long-Term Property Care',
+    desc: 'We help properties stay clean, presentable, and professionally maintained over time.',
     color: 'bg-green-50 text-green-600',
-
   },
 ];
 
 const milestones = [
-  { year: '1999', event: 'Founded in Victoria, BC with 2 employees and 1 pressure washer.' },
-  { year: '2004', event: 'Launched commercial cleaning for BC banks and retail.' },
-  { year: '2009', event: 'Expanded coverage across the Island for commercial and residential clients.' },
-  { year: '2013', event: 'Supported additional Island storefronts with reliable cleaning and maintenance.' },
-  { year: '2017', event: 'Strengthened local service coverage for more Vancouver Island communities.' },
-
-  { year: '2020', event: 'Essential service through COVID-19 with zero service interruptions.' },
-  { year: '2024', event: '12,000+ Vancouver Island properties serviced with growing demand.' },
-
+  {
+    year: 'Founded',
+    event: 'Founded by Farid Mouait—built with a focus on consistency, strong communication, and dependable property care.',
+  },
+  {
+    year: 'Operations',
+    event: 'Serving offices, strata properties, retail spaces, and commercial facilities across the region.',
+  },
+  {
+    year: 'Standards',
+    event: 'Clear communication, reliable scheduling, and quality-focused execution.',
+  },
+  {
+    year: 'Expertise',
+    event: 'Expanded services to support complete interior and exterior property care.',
+  },
 ];
+
+
 
 const AboutPage: React.FC = () => {
   return (
@@ -55,19 +60,14 @@ const AboutPage: React.FC = () => {
         <div className="absolute inset-0 bg-linear-to-r from-gray-900/90 to-sky-900/60" />
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <span className="inline-block px-6 py-3 bg-white/10 backdrop-blur-sm border border-white/20 text-white text-lg font-black rounded-3xl uppercase tracking-widest mb-8 shadow-2xl" id="about-hero-badge">
-            Vancouver Island's Choice Since 1999
-
+            Commercial Cleaning & Building Care
           </span>
           <h1 id="about-hero" className="text-5xl md:text-6xl lg:text-7xl font-black text-white mb-8 leading-tight drop-shadow-3xl">
-            25 Years Building Trust Across<br />
-            <span className="block lg:inline bg-linear-to-r from-sunny-400 to-emerald-400 bg-clip-text text-transparent drop-shadow-lg text-6xl lg:text-7xl">
-              Vancouver Island
-            </span>
+            Built to Keep Properties Looking Their Best
           </h1>
 
           <p className="text-xl md:text-2xl text-sky-100 max-w-3xl mx-auto leading-relaxed drop-shadow-lg">
-Family-owned from Victoria, BC to Vancouver Island commercial hubs.
-
+            SUNNYSIDEUP delivers dependable cleaning and maintenance solutions for commercial properties, offices, strata buildings, retail spaces, and facilities that need consistent, professional care.
           </p>
         </div>
       </section>
@@ -93,36 +93,37 @@ Family-owned from Victoria, BC to Vancouver Island commercial hubs.
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
             <div>
-              <span className="inline-block px-6 py-3 bg-linear-to-r from-sunny-100 to-emerald-100 text-gray-900 font-black text-lg rounded-3xl shadow-xl mb-8" id="legacy-badge">
+                <span className="inline-block px-6 py-3 bg-linear-to-r from-sunny-100 to-emerald-100 text-gray-900 font-black text-lg rounded-3xl shadow-xl mb-8" id="legacy-badge">
                 Victoria Roots
               </span>
               <h2 id="story-heading" className="text-5xl lg:text-6xl font-black text-gray-900 mb-12 leading-tight">
-                Vancouver Island's<br />
+                Local Service,<br />
 
-                <span className="text-emerald-600 block lg:inline">Maintenance Legacy</span>
+                <span className="text-emerald-600 block lg:inline">Trusted Standards</span>
               </h2>
               <div className="space-y-8 text-gray-700">
-              <p className="text-xl leading-relaxed">
-                  SunnySideUp Building Maintenance began in 1999 in Victoria, BC. Today we’re Vancouver Island’s most trusted maintenance partner for homes and businesses.
-                </p>
-                  <p className="text-xl leading-relaxed">
-                  Growth came from referrals and our simple promise: show up on time, treat every property like our own, and exceed expectations. From Victoria driveways to Island storefronts, that promise remains.
+                <p className="text-xl leading-relaxed">
+                  SUNNYSIDEUP supports the teams behind offices, strata buildings, retail spaces, and commercial facilities—keeping properties clean, presentable, and operational.
                 </p>
 
                 <p className="text-xl leading-relaxed">
-                  Family-owned and operated, our Victoria headquarters coordinates teams across Vancouver Island. Community roots with professional execution.
+                  SUNNYSIDEUP was founded by <span className="font-semibold text-gray-900">Farid Mouait</span>, with a focus on dependable service, strong communication, and consistent property care built around long-term client relationships.
+                </p>
 
+                <p className="text-xl leading-relaxed">
+                  We believe clean properties build confidence. When the details are handled well, clients notice—and your staff and tenants feel it every day.
                 </p>
               </div>
 
+
               <ul className="grid grid-cols-2 gap-6 mt-12 pt-8 border-t border-gray-200">
                 {[
-                  'Victoria HQ since 1999',
-                  'Family-owned',
-                  'Vancouver Island focus',
-
+                  'Built on consistent service',
+                  'Office-ready cleaning standards',
+                  'Strata & retail experience',
                   'Security-cleared teams',
                 ].map((fact) => (
+
                   <li key={fact} className="flex items-center gap-3 p-4 rounded-2xl bg-sky-50 group hover:bg-sky-100 transition-all">
                     <CheckCircle className="w-8 h-8 text-sky-600 shrink-0 group-hover:scale-110" />
                     <span className="font-semibold text-lg">{fact}</span>
@@ -182,11 +183,11 @@ Family-owned from Victoria, BC to Vancouver Island commercial hubs.
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center mb-20">
             <h2 id="timeline-heading" className="text-5xl lg:text-6xl font-black text-gray-900 mb-6">
-              25 Years of Vancouver Island <span className="text-emerald-600">Milestones</span>
+              Why Businesses Choose <span className="text-emerald-600">SUNNYSIDEUP</span>
 
             </h2>
             <p className="text-xl text-gray-600 max-w-xl mx-auto">
-              Key moments from our Victoria beginnings to today's Vancouver Island service.
+              Professional, reliable service with clear communication and detail-focused execution—built for ongoing property care.
 
             </p>
           </div>
@@ -197,11 +198,11 @@ Family-owned from Victoria, BC to Vancouver Island commercial hubs.
 
             <div className="space-y-16" role="list">
               {milestones.map((milestone, idx) => (
-  <div 
-    key={milestone.year}
-    className={`relative flex items-center gap-8 ${idx % 2 === 0 ? 'flex-row-reverse' : 'flex-row'} lg:flex-row lg:gap-16`}
-    role="listitem"
-  >
+                <div
+                  key={milestone.year}
+                  className={`relative flex items-center gap-8 ${idx % 2 === 0 ? 'flex-row-reverse' : 'flex-row'} lg:flex-row lg:gap-16`}
+                  role="listitem"
+                >
                   {/* Dot */}
                   <div className="absolute left-1/2 transform -translate-x-1/2 w-6 h-6 bg-linear-to-r from-sunny-400 to-emerald-400 rounded-full shadow-xl border-4 border-white z-20 flex items-center justify-center">
                     <div className="w-3 h-3 bg-white rounded-full shadow-md" />
@@ -226,26 +227,90 @@ Family-owned from Victoria, BC to Vancouver Island commercial hubs.
         </div>
       </section>
 
-      {/* Certifications */}
-      <section className="py-16 bg-emerald-50/50 border-y border-emerald-100/50" aria-labelledby="certs-heading">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 id="certs-heading" className="text-center text-emerald-800 text-2xl lg:text-3xl font-black uppercase tracking-widest mb-12">
-            Professional Standards
-          </h2>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 max-w-4xl mx-auto">
+      {/* FAQ */}
+      <section className="py-24 bg-linear-to-b from-white via-gray-50 to-sky-50" aria-labelledby="faq-heading">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <span
+              className="inline-block px-6 py-3 bg-sky-100/50 text-sky-700 font-black text-lg rounded-3xl backdrop-blur-sm shadow-lg mb-8"
+              id="faq-badge"
+            >
+              Frequently Asked Questions
+            </span>
+            <h2 id="faq-heading" className="text-4xl lg:text-5xl font-black text-gray-900 mb-6">
+              Answers to Common Questions
+            </h2>
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
+              Answers to common questions about our commercial cleaning and building maintenance services.
+            </p>
+          </div>
+
+          <div
+            className="space-y-4 max-w-3xl mx-auto"
+            role="region"
+            aria-label="Frequently asked questions"
+          >
             {[
-              '🏆 25+ Years Experience',
-              '🔒 WCB Compliant & Insured',
-              '✅ Security Cleared Staff',
-              '🌿 Eco Certified Products',
-              '🏢 Commercial Specialists',
-              '📋 Full Compliance Reporting',
-              '⚡ Same-Day Response',
-              '👨‍💼 Family Owned Operation',
-            ].map((cert) => (
-              <div key={cert} className="group p-6 rounded-2xl bg-white shadow-md border border-emerald-200 hover:shadow-emerald-300 hover:border-emerald-300 hover:-translate-y-2 transition-all text-center">
-                <p className="text-lg font-bold text-emerald-800 group-hover:text-emerald-900 transition-colors">{cert}</p>
-              </div>
+              {
+                q: 'What types of properties do you service?',
+                a: 'We provide cleaning and building maintenance services for offices, retail spaces, strata properties, commercial buildings, industrial facilities, and multi-unit properties across Vancouver Island.',
+              },
+              {
+                q: 'Do you offer customized cleaning plans?',
+                a: 'Yes. Every property has different needs, which is why we tailor our cleaning and maintenance services based on your schedule, building type, and operational requirements.',
+              },
+              {
+                q: 'How often can cleaning services be scheduled?',
+                a: 'We offer flexible scheduling options including daily, weekly, bi-weekly, monthly, and custom service plans depending on your property’s needs.',
+              },
+              {
+                q: 'Do you provide after-hours cleaning?',
+                a: 'Yes. We can schedule evening, overnight, or weekend cleaning services to minimize disruptions to your business operations.',
+              },
+              {
+                q: 'What services does SUNNYSIDEUP provide?',
+                a: 'Our services include commercial cleaning, office cleaning, strata maintenance, floor care, window cleaning, pressure washing, carpet cleaning, high dusting, and general building maintenance.',
+              },
+              {
+                q: 'Are your cleaning services suitable for high-traffic facilities?',
+                a: 'Yes. We work with high-traffic commercial environments and focus on maintaining clean, safe, and professional spaces consistently.',
+              },
+              {
+                q: 'Do you bring your own cleaning equipment and supplies?',
+                a: 'Yes. We arrive fully equipped with professional cleaning tools and supplies needed to complete the job efficiently.',
+              },
+              {
+                q: 'How do I request a quote?',
+                a: 'You can request a free quote directly through our website contact form or by reaching out to SUNNYSIDEUP Building Maintenance for a customized estimate.',
+              },
+              {
+                q: 'What areas do you serve?',
+                a: 'We proudly serve businesses and commercial properties across Vancouver Island and surrounding areas.',
+              },
+              {
+                q: 'Why choose SUNNYSIDEUP Building Maintenance?',
+                a: 'We focus on reliability, professionalism, communication, and attention to detail to help businesses maintain clean and welcoming environments.',
+              },
+            ].map((faq) => (
+              <details
+                key={faq.q}
+                className="group bg-white rounded-3xl p-2 shadow-lg border border-gray-100 hover:shadow-xl hover:border-sky-200 transition-all backdrop-blur-sm cursor-pointer"
+              >
+                <summary
+                  className="flex items-center justify-between p-8 rounded-2xl group-hover:bg-sky-50/50 transition-all cursor-pointer list-none font-bold text-xl text-gray-900 focus:ring-2 focus:ring-sky-400 focus:outline-none"
+                >
+                  {faq.q}
+                  <span
+                    className="ml-4 text-2xl transition-transform group-open:-rotate-45 duration-300"
+                    aria-hidden
+                  >
+                    +
+                  </span>
+                </summary>
+                <div className="px-8 pb-8 pt-4 mt-2 -mx-2">
+                  <p className="text-lg text-gray-700 leading-relaxed">{faq.a}</p>
+                </div>
+              </details>
             ))}
           </div>
         </div>
@@ -255,7 +320,7 @@ Family-owned from Victoria, BC to Vancouver Island commercial hubs.
         variant="yellow"
         badge="Ready to Partner?"
         headline="Join 12,000+ Vancouver Island Properties"
-        subtext="Experience the family-owned service that's earned trust across Vancouver Island."
+        subtext="Experience the professional commercial maintenance and cleaning services built for dependable property care across Vancouver Island."
 
         primaryCTA={{ label: 'Get Free Quote', href: '/contact' }}
         secondaryCTA={{ label: 'View Services', href: '/services' }}
