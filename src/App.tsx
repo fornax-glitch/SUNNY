@@ -15,6 +15,8 @@ import CoveragePage from './pages/CoveragePage';
 import ContactPage from './pages/ContactPage';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsOfService from './pages/TermsOfService';
+import Accessibility from './pages/Accessibility';
+
 
 // Scroll to top on route change
 const ScrollToTop: React.FC = () => {
@@ -68,7 +70,9 @@ const AppContent: React.FC = () => {
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/terms-of-service" element={<TermsOfService />} />
+          <Route path="/accessibility" element={<Accessibility />} />
           <Route path="*" element={<NotFoundPage />} />
+
         </Routes>
       </main>
       <Footer />
