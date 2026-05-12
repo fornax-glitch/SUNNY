@@ -1,6 +1,6 @@
 import React from 'react';
 import  Navbar  from '../components/Navbar';
-import  Footer  from '../components/Footer';
+
 import { LEGAL_NAME, PHONE, EMAIL, ADDRESS } from '../data';
 
 const PrivacyPolicy: React.FC = () => {
@@ -196,7 +196,7 @@ const PrivacyPolicy: React.FC = () => {
           </section>
         </div>
       </div>
-      <Footer />
+
     </>
   );
 };
