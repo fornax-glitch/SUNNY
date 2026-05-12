@@ -402,14 +402,15 @@ const CoveragePage: React.FC = () => {
 
               {/* Keep original area cards, but in a compact way under the panels for full coverage visibility */}
               <div className="mt-7">
-                <div className="flex items-center justify-between mb-4">
+                <div className="flex flex-col items-center justify-between mb-4 text-center gap-1">
                   <div className="text-gray-900 font-bold">Quick View of Areas</div>
                   <div className="text-gray-500 text-sm">Hover on the map above for city lists</div>
                 </div>
 
+
                 {/* Vancouver Island (VI) quick view */}
                 <div className="max-w-3xl w-full rounded-3xl border-2 border-yellow-400 bg-yellow-50 p-6">
-                  <div className="flex items-center justify-between mb-1">
+                  <div className="flex items-center justify-center mb-1 gap-4">
                     <span className="inline-flex items-center gap-2 px-4 py-1.5 bg-yellow-400/20 border border-yellow-400/30 text-yellow-700 text-sm font-bold rounded-full">
                       {VANCOUVER_ISLAND_REGION.code}
                     </span>
@@ -418,9 +419,11 @@ const CoveragePage: React.FC = () => {
                     </span>
                   </div>
 
-                  <div className="mt-3">
+
+                  <div className="mt-3 text-center">
                     <div className="text-gray-900 font-black text-xl">{VANCOUVER_ISLAND_REGION.name}</div>
                   </div>
+
 
                   <div
                     className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-y-2 gap-x-8 mt-4"
