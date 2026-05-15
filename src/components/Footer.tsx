@@ -18,7 +18,7 @@ const Footer: React.FC = () => {
   setSubmitted(false);
 
   try {
-    const res = await fetch('/api/contact', {
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/contact`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

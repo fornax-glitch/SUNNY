@@ -3,21 +3,38 @@ import { Resend } from 'resend';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-export default async function handler(req: VercelRequest, res: VercelResponse) {
+export default async function handler(
+  req: VercelRequest,
+  res: VercelResponse
+) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
   try {
-    const { name, email, phone, serviceType, cityProvince, message } = req.body;
+    console.log('ENV CHECK', {
+      hasApiKey: !!process.env.RESEND_API_KEY,
+      to: process.env.CONTACT_TO_EMAIL,
+      from: process.env.FROM_EMAIL,
+    });
 
-    if (!name || !email || !phone || !serviceType) {
-      return res.status(400).json({ error: 'Missing required fields' });
-    }
+    const {
+      name,
+      email,
+      phone,
+      serviceType,
+      cityProvince,
+      message,
+    } = req.body;
 
-    const emailContent = `
-New Quote Request - SunnySideUp
+    console.log('FORM DATA', req.body);
 
+    const response = await resend.emails.send({
+      from: process.env.FROM_EMAIL || 'onboarding@resend.dev',
+      to: process.env.CONTACT_TO_EMAIL || 'sabiri.amin@gmail.com',
+      subject: `New Quote Request - ${serviceType}`,
+      replyTo: email,
+      text: `
 Name: ${name}
 Email: ${email}
 Phone: ${phone}
@@ -25,19 +42,22 @@ Service: ${serviceType}
 Location: ${cityProvince}
 
 Message:
-${message || 'No additional details'}
-`;
-
-    await resend.emails.send({
-      from: process.env.FROM_EMAIL!,
-      to: process.env.CONTACT_TO_EMAIL!,
-      subject: `New Quote Request - ${serviceType}`,
-      text: emailContent,
+${message}
+      `,
     });
 
-    return res.status(200).json({ success: true });
+    console.log('RESEND RESPONSE', response);
+
+    return res.status(200).json({
+      success: true,
+      response,
+    });
   } catch (error) {
-    console.error(error);
-    return res.status(500).json({ error: 'Email failed to send' });
+    console.error('RESEND ERROR', error);
+
+    return res.status(500).json({
+      success: false,
+      error,
+    });
   }
 }
