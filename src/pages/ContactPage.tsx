@@ -4,6 +4,10 @@ import { Phone, Mail, MapPin, Send, CheckCircle } from 'lucide-react';
 import { PHONE, EMAIL, ADDRESS } from '../data';
 import type { ContactFormData } from '../types';
 
+import ContactResponsePromise from '../components/ContactResponsePromise';
+import WhatHappensNext from '../components/WhatHappensNext';
+
+
 const ContactPage: React.FC = () => {
   const [searchParams] = useSearchParams();
   const commercialMode = searchParams.get('type') === 'commercial';
@@ -54,7 +58,13 @@ const ContactPage: React.FC = () => {
 
     // TODO: Replace [PLACEHOLDER-FORM-ID] with real Formspree form ID — Waiting for client input
     try {
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      await fetch('/api/contact', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify(formData),
+});
       setSubmitted(true);
       setTimeout(() => {
         setSubmitted(false);
@@ -454,6 +464,9 @@ const ContactPage: React.FC = () => {
                 <p id="form-note" className="text-center text-gray-500 text-sm mt-8 pt-8 border-t border-gray-200">
                   🔒 Secure submission • Reply within 24 hours • No spam ever
                 </p>
+
+                <ContactResponsePromise />
+                {!submitted && <WhatHappensNext /> }
               </div>
             </div>
           </div>

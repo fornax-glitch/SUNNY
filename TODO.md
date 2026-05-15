@@ -1,24 +1,44 @@
 # TODO
 
-## Footer premium refinement (SUNNYSIDEUP)
+## FINAL CLIENT READABILITY + HUMANIZATION PASS (content-only)
 
-- [ ] Read current `src/components/Footer.tsx` and identify all required UI sections (brand, services links, contact, quick quote card, social icons, service area chips, bottom bar).
-- [ ] Add footer atmosphere layer: absolute positioned blurred sunny yellow + sky blue glows, keep readability (dark base).
-- [ ] Add cinematic top transition: ~80–100px gradient fade into `gray-900` before footer content.
-- [ ] Upgrade brand paragraph copy to stronger SUNNYSIDEUP identity (local, dependable, commercial-professional, island-based).
-- [ ] Upgrade “Quick Quote” section into a premium card:
-  - [ ] Gradient dark card background, subtle sunny border, stronger shadow, rounded corners, improved padding.
-  - [ ] Add small label “FAST RESPONSE” + bold title “Request a Quick Quote” above the form.
-  - [ ] Preserve form logic, inputs, and submit button functionality.
-- [ ] Replace fake social icons (f/in/ig) with lucide-react icons: Facebook, Linkedin, Instagram.
-  - [ ] Glass/dark hover, rounded buttons, smooth transitions.
-- [ ] Upgrade service area tags to premium “glassy/dark chip” style with hover.
-- [ ] Add trust/stats row above bottom copyright bar:
-  - [ ] 4 compact items: 25+ Years Experience, Victoria-Based Team, Flexible Scheduling, Island-Wide Support.
-  - [ ] Subtle clean responsive grid.
-- [ ] Improve spacing/layout + typography polish:
-  - [ ] Increase breathing room (py-20/py-24), better column gaps and vertical rhythm.
-  - [ ] Cleaner hover states and hierarchy for headings/metadata.
-- [ ] Run TypeScript build/lint (or `npm test`/`npm run build`) to ensure no regressions.
-- [ ] Verify footer routes and form behavior remain intact.
+*(Approved by user for implementation in the next step.)*
+
+
+### Step 1: Gather and review files
+- [x] Locate and inspect homepage + proof components for over-optimized language.
+- [x] Identify dense phrases: “problem state”, “restored outcome”, “repeatable execution”, “structured workflow”, “operational proof”, “commercial-ready communication”, “evidence layer”, “recurring maintenance clients”, and “Trusted by” copy.
+
+### Step 2: Approve edit plan
+- [x] Get plan approval before any code edits.
+
+
+### Step 3: Implement content-only changes
+- [ ] Edit `src/pages/HomePage.tsx` copy in these areas:
+  - Hero trust indicator labels and subtext.
+
+  - Commercial Cleaning featured section paragraph + bullet chips.
+  - Proof slider section heading/subtext and Before/After labels.
+  - Trusted-by section headline, supporting lines, and confidentiality note.
+
+- [ ] Edit `src/components/ProofShowcase.tsx` copy in these areas:
+  - Before/After heading + intro paragraph.
+  - Stat card labels.
+  - Before/After labels passed to `BeforeAfterSlider`.
+
+- [ ] Edit `src/components/ProofShowcaseExpanded.tsx` copy in these areas:
+  - Section tag and heading.
+  - Main paragraph.
+  - Category descriptions.
+  - “Repeatable execution—built for reliability” row.
+
+### Step 4: Validate
+- [ ] Run `npm test` or `npm run build` (whichever exists) to confirm no build errors.
+
+### Step 5: Reporting (final output)
+- [ ] Provide:
+  - List of simplified/humanized copy areas
+  - Any sections still dense
+  - Confirmation: no routing/layout/structure changes
+  - Build validation result
 

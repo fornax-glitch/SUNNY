@@ -3,6 +3,11 @@ import { CheckCircle, Award, Heart, Users, Leaf } from 'lucide-react';
 import CTABanner from '../components/CTABanner';
 import { STATS } from '../data';
 
+import OperationalStandards from '../components/OperationalStandards';
+import OurProcessPhilosophy from '../components/OurProcessPhilosophy';
+import SafetyAndReliability from '../components/SafetyAndReliability';
+
+
 const values = [
   {
     icon: <Award size={24} />,
@@ -151,8 +156,22 @@ const AboutPage: React.FC = () => {
         </div>
       </section>
 
+      {/* Operational Standards */}
+      <div className="hidden lg:block">
+        <OperationalStandards />
+      </div>
+
+      {/* Our Process Philosophy */}
+      <OurProcessPhilosophy />
+
+      {/* Safety & Reliability */}
+      <div className="hidden lg:block">
+        <SafetyAndReliability />
+      </div>
+
       {/* Values */}
       <section className="py-24 bg-linear-to-b from-gray-50 to-white" aria-labelledby="values-heading">
+
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-20">
             <h2 id="values-heading" className="text-5xl lg:text-6xl font-black text-gray-900 mb-8">

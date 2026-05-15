@@ -1,8 +1,8 @@
-import type { ServicePillar, Testimonial, CoverageArea, Stat, BeforeAfterItem, TrustedClient } from '../types';
+import type { ServicePillar, Testimonial, CoverageArea, Stat, BeforeAfterItem, TrustedClient, TrustStat, ProjectShowcase } from '../types';
 
 // BUSINESS INFO - Update as needed
 export const PHONE = '(250) 889-9222';
-export const EMAIL = 'sunnysideup1402@outlook.com';
+export const EMAIL = 'sabiri.amin@gmail.com';
 export const ADDRESS = 'Victoria, BC (HQ) — Serving Vancouver Island ';
 export const LEGAL_NAME = 'SunnySideUp Building Maintenance';
 

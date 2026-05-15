@@ -4,6 +4,9 @@ import { ArrowRight, MapPin } from 'lucide-react';
 import CTABanner from '../components/CTABanner';
 import { COVERAGE_AREAS } from '../data';
 import { VANCOUVER_ISLAND_REGION } from '@/data/coverageAreas';
+import VancouverIslandServiceRegions from '../components/VancouverIslandServiceRegions';
+import LocalClimateMaintenanceInsights from '../components/LocalClimateMaintenanceInsights';
+
 
 const focusColors = {
   primary: {
@@ -265,6 +268,10 @@ const CoveragePage: React.FC = () => {
           <p className="text-center text-gray-400 text-xs mt-4">Hover to explore the communities we serve</p>
         </div>
       </section>
+
+      {/* Vancouver Island local authority (added) */}
+      <VancouverIslandServiceRegions />
+      <LocalClimateMaintenanceInsights />
 
       {/* Properties We Commonly Support */}
       <section className="py-16 bg-white">

@@ -1,11 +1,21 @@
 import React, { useState } from 'react';
 import { useParams, Link, Navigate } from 'react-router-dom';
 import { ArrowRight, Phone } from 'lucide-react';
+
 import ServiceGrid from '../components/ServiceGrid';
 import CTABanner from '../components/CTABanner';
 import BeforeAfterSlider from '../components/BeforeAfterSlider';
+import AudienceTabs from '../components/AudienceTabs';
+import TrustStrip from '../components/TrustStrip';
+import CommercialTrustBlock from '../components/CommercialTrustBlock';
+import ServiceProcessExpanded from '../components/ServiceProcessExpanded';
+import ServiceFAQBlock from '../components/ServiceFAQBlock';
 import { BEFORE_AFTER_ITEMS } from '../data';
+
 import { SERVICE_CATEGORIES } from '../data/serviceCategories';
+import { getContactHref } from '../utils/contactCta';
+
+
 
 // Note: this page is now routed by /services/:category/:service
 
@@ -19,11 +29,8 @@ const ServiceDetailPage: React.FC = () => {
 
   const [activeTab, setActiveTab] = useState<'all' | 'residential' | 'commercial'>('all');
 
-  const audienceFilteredServices = serviceData?.audience;
-  const showResidential =
-    activeTab === 'all' || activeTab === 'residential' || audienceFilteredServices?.includes('residential');
-  const showCommercial =
-    activeTab === 'all' || activeTab === 'commercial' || audienceFilteredServices?.includes('commercial');
+
+
 
   if (!categoryData || !serviceData) return <Navigate to="/services" replace />;
 
@@ -82,9 +89,14 @@ const ServiceDetailPage: React.FC = () => {
             </p>
             <p className="text-gray-300 text-lg leading-relaxed mb-8">{serviceData.description ?? categoryData.description}</p>
 
+            {/* Decision layer (mirrors CategoryPage: All / Residential / Commercial) */}
+            <div className="mb-8">
+              <AudienceTabs activeTab={activeTab} onChange={setActiveTab} />
+            </div>
+
 
             <div className="flex flex-col sm:flex-row gap-4">
-              <Link to="/contact" className="btn-primary">
+              <Link to={getContactHref(activeTab)} className="btn-primary">
                 Get a Free Quote
                 <ArrowRight size={16} />
               </Link>
@@ -104,42 +116,34 @@ const ServiceDetailPage: React.FC = () => {
       <section className="py-20 lg:py-28 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-10">
-              <h2 className="text-3xl md:text-4xl font-black text-gray-900 mb-4">
+            <h2 className="text-3xl md:text-4xl font-black text-gray-900 mb-4">
               Explore <span className="text-sky-600">{categoryData.title}</span> Services
             </h2>
 
-            <p className="text-gray-600 max-w-xl mx-auto mb-8">
-              Filter by client type to find the exact service you need.
+            <p className="text-gray-600 max-w-xl mx-auto mb-6">
+              Choose your preferred audience, then browse the best-fit options.
             </p>
-
-            {/* Filter tabs */}
-            <div className="inline-flex bg-gray-100 rounded-xl p-1 gap-1">
-              {(['all', 'residential', 'commercial'] as const).map((tab) => (
-                <button
-                  key={tab}
-                  onClick={() => setActiveTab(tab)}
-                  className={`px-5 py-2.5 rounded-lg text-sm font-semibold transition-all ${
-                    activeTab === tab
-                      ? 'bg-white text-gray-900 shadow-sm'
-                      : 'text-gray-500 hover:text-gray-700'
-                  }`}
-                >
-                  {tab === 'all' ? 'All Services' : tab === 'residential' ? '🏠 Residential' : '🏢 Commercial'}
-                </button>
-              ))}
-            </div>
           </div>
 
+          {/* Trust strip (parity with CategoryPage, shown before CTA/content options) */}
+          <TrustStrip />
+
           <ServiceGrid
+
+
             services={categoryData.services as any}
-            ctaHref="/contact"
+            ctaHref={getContactHref(activeTab)}
           />
+
+
         </div>
       </section>
+
 
       {/* Pressure washing before/after */}
       {isPressureWashing && (
         <section className="py-20 bg-gray-50">
+
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
               <h2 className="text-3xl md:text-4xl font-black text-gray-900 mb-4">
@@ -164,8 +168,15 @@ const ServiceDetailPage: React.FC = () => {
         </section>
       )}
 
+      {/* Service process enhancement */}
+      <ServiceProcessExpanded />
+
       {/* Process section */}
       <section className="py-20 bg-white">
+
+
+
+
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-black text-gray-900 mb-4">
@@ -196,8 +207,15 @@ const ServiceDetailPage: React.FC = () => {
         </div>
       </section>
 
+      {/* Service process enhancement */}
+      {isPressureWashing && <ServiceFAQBlock serviceType={serviceData.title} />}
+      {!isPressureWashing && <ServiceFAQBlock serviceType={serviceData.title} />}
+
       {/* Guarantees */}
       <section className="py-14 bg-gray-50 border-y border-gray-100">
+
+
+
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-wrap justify-center gap-6">
             {[
@@ -220,12 +238,15 @@ const ServiceDetailPage: React.FC = () => {
         </div>
       </section>
 
+
+      <CommercialTrustBlock />
+
       <CTABanner
         variant="yellow"
         headline={`Ready for Professional ${serviceData.title}?`}
         subtext={`Get your free, no-obligation estimate from our trusted Vancouver Island team for ${categoryData.title}.`}
 
-        primaryCTA={{ label: 'Get My Free Quote', href: '/contact' }}
+        primaryCTA={{ label: 'Get My Free Quote', href: getContactHref(activeTab) }}
         secondaryCTA={{ label: 'View All Services', href: '/services' }}
         showPhone
       />

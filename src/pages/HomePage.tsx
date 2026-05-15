@@ -6,6 +6,17 @@ import TestimonialCarousel from '../components/TestimonialCarousel';
 import BeforeAfterSlider from '../components/BeforeAfterSlider';
 import CTABanner from '../components/CTABanner';
 import { SERVICE_PILLARS, TESTIMONIALS, STATS, TRUSTED_CLIENTS, BEFORE_AFTER_ITEMS } from '../data';
+import ProofShowcase from '../components/ProofShowcase';
+import ProofShowcaseExpanded from '../components/ProofShowcaseExpanded';
+import WhyVancouverIslandChoosesSunnySideUp from '../components/WhyVancouverIslandChoosesSunnySideUp';
+
+
+
+
+
+
+
+
 
 const heroLines = [
   'Trusted Cleaning & Handyman Services',
@@ -84,7 +95,7 @@ const HomePage: React.FC = () => {
                 heroVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
               }`}
             >
-Residential and commercial maintenance services based on Vancouver Island — including professional window cleaning and carpet cleaning. Reliable, insured, and detail-focused professionals with 25+ years of experience.
+Residential and commercial maintenance across Vancouver Island — window cleaning and carpet cleaning included. Reliable, insured, and detail-focused, backed by 25+ years of local experience.
             </p>
 
             {/* CTAs */}
@@ -97,14 +108,15 @@ Residential and commercial maintenance services based on Vancouver Island — in
                 to="/contact"
                 className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-sunny-400 hover:bg-sunny-300 text-gray-900 font-bold rounded-xl shadow-xl hover:shadow-sunny-400/30 transition-all hover:-translate-y-0.5 text-base"
               >
-                Get My Free Quote
+                Get Instant Quote
+
                 <ArrowRight size={18} />
               </Link>
               <Link
                 to="/services"
                 className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white font-bold rounded-xl border border-white/20 transition-all hover:-translate-y-0.5 text-base"
               >
-                View Our Services
+                Explore Services
                 <ChevronRight size={18} />
               </Link>
             </div>
@@ -243,7 +255,7 @@ Two core service pillars — window cleaning, carpet cleaning, and handyman — 
                 to="/contact"
                 className="px-6 py-3 bg-white/10 hover:bg-white/20 text-white font-bold rounded-xl border border-white/20 transition-all hover:-translate-y-0.5 text-sm"
               >
-                Get a Quote
+                Get Instant Quote
               </Link>
             </div>
           </div>
@@ -252,6 +264,7 @@ Two core service pillars — window cleaning, carpet cleaning, and handyman — 
 
       {/* ─── FEATURED CLEANING SERVICE ─── */}
       <section className="py-20 lg:py-28 bg-gray-50">
+
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
 
@@ -287,17 +300,16 @@ Two core service pillars — window cleaning, carpet cleaning, and handyman — 
                 <span className="text-sky-600">From Victoria to the Island</span>
               </h2>
               <p className="text-gray-600 text-lg leading-relaxed mb-6">
-                Our commercial janitorial division operates with security-cleared, bonded staff —
-                exactly what high-traffic environments require. We support retail locations and
-                property managers across Vancouver Island.
+                Our commercial maintenance is delivered by security-cleared, bonded crews with insured work and clear scheduling (weekly, monthly, or seasonal).
+                Expect dependable updates and dependable results your team can count on.
               </p>
 
               <div className="space-y-3 mb-8">
                 {[
                   'Security-cleared & background-checked staff',
                   'After-hours & overnight scheduling available',
-                  'Customized multi-location service plans',
-                  'Detailed service reports & compliance documentation',
+                  'Scheduling options for weekly, monthly, or seasonal needs',
+                  'Clear service updates and documentation when you need it',
                   'Eco-certified & food-safe cleaning products',
                 ].map((point) => (
                   <div key={point} className="flex items-center gap-3">
@@ -313,7 +325,7 @@ Two core service pillars — window cleaning, carpet cleaning, and handyman — 
                   <ArrowRight size={16} />
                 </Link>
                 <Link to="/contact?type=commercial" className="btn-outline-yellow">
-                  Request a Partnership
+                  Request a Partnership (Commercial Maintenance)
                 </Link>
               </div>
             </div>
@@ -322,17 +334,30 @@ Two core service pillars — window cleaning, carpet cleaning, and handyman — 
       </section>
 
       {/* ─── BEFORE & AFTER SLIDER ─── */}
+      <ProofShowcase />
+      <ProofShowcaseExpanded />
+
+      <CTABanner
+        variant="blue"
+        badge="Quick Next Step"
+headline="Get Your Quote in 24 Hours"
+        subtext="Tell us what you need—our Victoria team responds fast with clear next steps."
+        primaryCTA={{ label: 'Get Instant Quote', href: '/contact' }}
+        secondaryCTA={{ label: 'Explore Services', href: '/services' }}
+      />
+
       <section className="py-20 lg:py-28 bg-white">
+
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <span className="inline-block px-4 py-1.5 bg-sky-100 text-sky-700 text-sm font-bold rounded-full uppercase tracking-wide mb-4">
-              Real Results
+              Real Transformation Proof
             </span>
-            <h2 className="section-heading text-gray-900 mb-4">
-              See the <span className="text-sunny-500">SunnySideUp</span> Difference
+              <h2 className="section-heading text-gray-900 mb-4">
+              Before shows buildup and wear. After shows a refreshed, cleaner finish.
             </h2>
             <p className="section-subheading">
-              Drag the slider to see the dramatic transformation our pressure washing services deliver.
+              Drag the slider to compare real surfaces: the “before” shows buildup and wear, and the “after” shows the cleaner, refreshed finish.
             </p>
           </div>
           <div className="max-w-4xl mx-auto">
@@ -341,19 +366,29 @@ Two core service pillars — window cleaning, carpet cleaning, and handyman — 
                 key={item.id}
                 before={item.before}
                 after={item.after}
-                title={item.title}
+                title={"Before → After"}
                 service={item.service}
+                beforeLabel="Before"
+                afterLabel="After"
               />
             ))}
           </div>
         </div>
       </section>
 
+
+
+
+
+      <WhyVancouverIslandChoosesSunnySideUp />
+
       {/* ─── TRUSTED BY SECTION ─── */}
+
+
       <section className="py-14 bg-gray-50 border-y border-gray-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <p className="text-center text-gray-500 text-sm font-semibold uppercase tracking-widest mb-10">
-            Trusted by Leading Vancouver Island Businesses and Organizations
+Trusted by Vancouver Island businesses
           </p>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
             {TRUSTED_CLIENTS.map((client) => (
@@ -372,7 +407,7 @@ Two core service pillars — window cleaning, carpet cleaning, and handyman — 
             ))}
           </div>
           <p className="text-center text-gray-400 text-xs mt-6">
-            * Client names anonymized for confidentiality. References available upon request.
+            * Some client names are anonymized. If you’re a commercial buyer, we can share relevant references on request.
           </p>
         </div>
       </section>
@@ -435,8 +470,8 @@ Two core service pillars — window cleaning, carpet cleaning, and handyman — 
         badge="Ready to Get Started?"
 headline="Trusted Vancouver Island Care"
 subtext="Ready for professional residential and commercial cleaning or handyman support across Vancouver Island? Get your quote today."
-        primaryCTA={{ label: 'Get a Free Quote Now', href: '/contact' }}
-        secondaryCTA={{ label: 'View Our Services', href: '/services' }}
+        primaryCTA={{ label: 'Get Instant Quote', href: '/contact' }}
+        secondaryCTA={{ label: 'Explore Services', href: '/services' }}
         showPhone
       />
     </div>

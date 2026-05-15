@@ -1,4 +1,4 @@
-export interface ServiceItem {
+﻿export interface ServiceItem {
   id: string;
   icon: string;
   title: string;
@@ -7,16 +7,7 @@ export interface ServiceItem {
   category: 'residential' | 'commercial' | 'both' | 'interior' | 'exterior';
 }
 
-export interface ServicePillar {
-  id: string;
-  slug: string;
-  name: string;
-  tagline: string;
-  description: string;
-  image: string;
-  services: ServiceItem[];
-  cta: string;
-}
+export type ClientType = 'residential' | 'commercial' | 'property-manager';
 
 export interface Testimonial {
   id: string;
@@ -26,7 +17,7 @@ export interface Testimonial {
   location: string;
   rating: number;
   text: string;
-  clientType: 'residential' | 'commercial';
+  clientType: ClientType;
   avatar: string;
 }
 
@@ -74,3 +65,23 @@ export interface TrustedClient {
   placeholder: string;
 }
 
+export type TrustStatTier = 'gold' | 'silver' | 'bronze';
+
+export interface TrustStat {
+  value: string;
+  label: string;
+  sublabel?: string;
+  tier: TrustStatTier;
+}
+
+export interface ProjectShowcase {
+  id: string;
+  title: string;
+  service: string;
+  location: string;
+  summary: string;
+  headline: string;
+  before: string;
+  after: string;
+  metrics?: string;
+}
