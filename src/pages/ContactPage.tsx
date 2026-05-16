@@ -58,13 +58,14 @@ const ContactPage: React.FC = () => {
 
     // TODO: Replace [PLACEHOLDER-FORM-ID] with real Formspree form ID — Waiting for client input
     try {
-      await fetch(`${import.meta.env.VITE_API_URL}/api/contact`, {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json',
-  },
-  body: JSON.stringify(formData),
-});
+      await fetch('https://formspree.io/f/xnjwelnl', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
       setSubmitted(true);
       setTimeout(() => {
         setSubmitted(false);
