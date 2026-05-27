@@ -3,20 +3,15 @@ import { Link } from 'react-router-dom';
 import { Shield, Users, Leaf, ArrowRight, CheckCircle, Star, ChevronRight } from 'lucide-react';
 import ServiceGrid from '../components/ServiceGrid';
 import TestimonialCarousel from '../components/TestimonialCarousel';
-import BeforeAfterSlider from '../components/BeforeAfterSlider';
+import BeforeAfterReel from '../components/BeforeAfterReel';
+
 import CTABanner from '../components/CTABanner';
 import { SERVICE_PILLARS, TESTIMONIALS, STATS, TRUSTED_CLIENTS, BEFORE_AFTER_ITEMS } from '../data';
 import ProofShowcase from '../components/ProofShowcase';
 import ProofShowcaseExpanded from '../components/ProofShowcaseExpanded';
 import WhyVancouverIslandChoosesSunnySideUp from '../components/WhyVancouverIslandChoosesSunnySideUp';
 
-
-
-
-
-
-
-
+import { trustClaims } from '../copy/trustAssurance';
 
 const heroLines = [
   'Trusted Cleaning & Handyman Services',
@@ -95,7 +90,7 @@ const HomePage: React.FC = () => {
                 heroVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
               }`}
             >
-Residential and commercial maintenance across Vancouver Island — window cleaning and carpet cleaning included. Reliable, insured, and detail-focused, backed by 25+ years of local experience.
+Residential and commercial maintenance across Vancouver Island — window cleaning and carpet cleaning included. Reliable, detail-focused, backed by 25+ years of local experience.
             </p>
 
             {/* CTAs */}
@@ -127,14 +122,10 @@ Residential and commercial maintenance across Vancouver Island — window cleani
                 heroVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
               }`}
             >
-              {[
-                { icon: <Users size={14} />, label: 'Our mission : Keeping Vancouver Island properties clean, protected, and professional.' },
-                { icon: <Shield size={14} />, label: '100% Security-Cleared & Insured Staff' },
-                { icon: <Leaf size={14} />, label: 'Eco-Friendly Products & Island-Safe Practices' },
-              ].map((item) => (
-                <div key={item.label} className="flex items-center gap-2 text-white/80 text-sm">
-                  <span className="text-sunny-400">{item.icon}</span>
-                  {item.label}
+              {trustClaims.map((claim) => (
+                <div key={claim.label} className="flex items-center gap-2 text-white/80 text-sm">
+                  <span className="text-sunny-400">{claim.icon}</span>
+                  {claim.label}
                 </div>
               ))}
             </div>
@@ -300,8 +291,7 @@ Two core service pillars — window cleaning, carpet cleaning, and handyman — 
                 <span className="text-sky-600">From Victoria to the Island</span>
               </h2>
               <p className="text-gray-600 text-lg leading-relaxed mb-6">
-                Our commercial maintenance is delivered by security-cleared, bonded crews with insured work and clear scheduling (weekly, monthly, or seasonal).
-                Expect dependable updates and dependable results your team can count on.
+                {trustParagraphs.commercialMaintenance}
               </p>
 
               <div className="space-y-3 mb-8">
@@ -346,35 +336,8 @@ headline="Get Your Quote in 24 Hours"
         secondaryCTA={{ label: 'Explore Services', href: '/services' }}
       />
 
-      <section className="py-20 lg:py-28 bg-white">
+      <BeforeAfterReel items={BEFORE_AFTER_ITEMS} label="Recent Work Highlights" />
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <span className="inline-block px-4 py-1.5 bg-sky-100 text-sky-700 text-sm font-bold rounded-full uppercase tracking-wide mb-4">
-              Real Transformation Proof
-            </span>
-              <h2 className="section-heading text-gray-900 mb-4">
-              Before shows buildup and wear. After shows a refreshed, cleaner finish.
-            </h2>
-            <p className="section-subheading">
-              Drag the slider to compare real surfaces: the “before” shows buildup and wear, and the “after” shows the cleaner, refreshed finish.
-            </p>
-          </div>
-          <div className="max-w-4xl mx-auto">
-            {BEFORE_AFTER_ITEMS.map((item) => (
-              <BeforeAfterSlider
-                key={item.id}
-                before={item.before}
-                after={item.after}
-                title={"Before → After"}
-                service={item.service}
-                beforeLabel="Before"
-                afterLabel="After"
-              />
-            ))}
-          </div>
-        </div>
-      </section>
 
 
 

@@ -1,0 +1,21 @@
+{
+  "ignoreUnresolved": [],
+  "ignoreUnused": [
+    "@types/react-router-dom",
+    "@vercel/node",
+    "clsx",
+    "cors",
+    "dotenv",
+    "express",
+    "resend",
+    "tailwind-merge"
+  ],
+  "ignoreUnimported": [
+    "C:/Projects/SUNNY/src/components/TransformationHighlights.tsx",
+    "C:/Projects/SUNNY/src/pages/ServiceNotFoundRedirect.tsx",
+    "C:/Projects/SUNNY/src/utils/cn.ts",
+    "C:\\Projects\\SUNNY\\src\\components\\TransformationHighlights.tsx",
+    "C:\\Projects\\SUNNY\\src\\pages\\ServiceNotFoundRedirect.tsx",
+    "C:\\Projects\\SUNNY\\src\\utils\\cn.ts"
+  ]
+}

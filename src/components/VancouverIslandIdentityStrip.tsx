@@ -25,7 +25,7 @@ const VancouverIslandIdentityStrip: React.FC = () => {
 
               <div className="flex flex-wrap gap-2 justify-start sm:justify-end">
                 {[
-                  { label: 'Insured Pros', tone: 'bg-white/5 border-white/10 text-white' },
+                  { label: 'Security-cleared Pros', tone: 'bg-white/5 border-white/10 text-white' },
                   { label: 'Eco-Conscious Methods', tone: 'bg-white/5 border-white/10 text-white' },
                   { label: 'Commercial + Residential', tone: 'bg-white/5 border-white/10 text-white' },
                   { label: 'Recurring Maintenance', tone: 'bg-white/5 border-white/10 text-white' },

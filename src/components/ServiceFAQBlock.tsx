@@ -23,8 +23,8 @@ const FAQ_TEMPLATES = {
     a: 'Timelines depend on surface area, condition, and the level of restoration needed. We outline an expected service duration up front, then keep you updated throughout the job.',
   },
   safety: {
-    q: 'Is your team insured and safe for properties?',
-    a: 'Yes. Our crews are insured and work with property-safe methods. We also follow site access expectations so your building, people, and environment are protected.',
+    q: 'Is your team security-cleared and safe for properties?',
+    a: 'Yes. Our crews are professionally vetted and work with property-safe methods. We also follow site access expectations so your building, people, and environment are protected.',
   },
   equipment: {
     q: 'What equipment and methods do you use?',

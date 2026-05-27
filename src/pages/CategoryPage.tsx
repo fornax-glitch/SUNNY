@@ -44,7 +44,7 @@ const CategoryPage: React.FC = () => {
   const [activeTab, setActiveTab] = useState<AudienceTab>('all');
 
   const filteredServices = useServiceFiltering(
-    (categoryData?.services as any[]) || undefined,
+    categoryData?.services as unknown[] | undefined,
     activeTab
   );
 
@@ -117,13 +117,14 @@ const CategoryPage: React.FC = () => {
 
 
             services={(() => {
-              const services = [...(filteredServices as any)];
+              const services = [...(filteredServices as unknown[])];
               const isCommercial = activeTab === 'commercial';
               const isResidential = activeTab === 'residential';
 
-              const score = (s: any) => {
-                const title = String(s?.title ?? '').toLowerCase();
-                const icon = String(s?.icon ?? '').toLowerCase();
+              const score = (s: unknown) => {
+                const sAny = s as { title?: unknown; icon?: unknown };
+                const title = String(sAny?.title ?? '').toLowerCase();
+                const icon = String(sAny?.icon ?? '').toLowerCase();
                 const allText = `${title} ${icon}`;
 
                 const isStrata = allText.includes('strata');

@@ -7,7 +7,7 @@ const TrustStrip: React.FC = () => {
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
           <div className="flex items-center gap-2 px-4 py-3 bg-white/80 rounded-2xl border border-sky-100 shadow-sm">
             <span className="text-sky-700 text-base">✅</span>
-            <p className="text-gray-900 text-sm font-bold">Insured & security-cleared</p>
+            <p className="text-gray-900 text-sm font-bold">Security-Cleared & Professionally Vetted</p>
           </div>
           <div className="flex items-center gap-2 px-4 py-3 bg-white/80 rounded-2xl border border-sky-100 shadow-sm">
             <span className="text-amber-700 text-base">🧾</span>

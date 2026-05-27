@@ -3,7 +3,7 @@ import React from 'react';
 const SafetyAndReliability: React.FC = () => {
   const points = [
     {
-      title: 'Insured & dependable staffing',
+      title: 'Security-Cleared & Professionally Vetted staffing',
       desc: 'Background-checked teams designed for consistent, professional service delivery.',
       icon: '🛡️',
     },

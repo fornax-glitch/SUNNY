@@ -17,7 +17,7 @@ const WHY_LOCAL_LAYERS = [
     icon: '🛡️',
     title: 'Reliability over time',
     description:
-      'Insured professionals and recurring maintenance readiness—helping you protect property value with consistent upkeep.',
+      'Security-cleared professionals and recurring maintenance readiness—helping you protect property value with consistent upkeep.',
   },
 ];
 

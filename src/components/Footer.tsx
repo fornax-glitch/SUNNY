@@ -79,7 +79,7 @@ const Footer: React.FC = () => {
             <div className="lg:col-span-2">
               <div className="flex flex-wrap gap-2">
                 {[
-                  '✅ Insured & Professional',
+                  '✅ Security-Cleared & Professionally Vetted',
                   '🌿 Eco-Conscious Methods',
                   '🏢 Commercial & Residential',
                   '🔁 Recurring Maintenance',

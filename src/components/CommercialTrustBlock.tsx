@@ -20,7 +20,7 @@ const CommercialTrustBlock: React.FC = () => {
           <div className="w-full md:w-auto">
             <div className="flex flex-wrap gap-2">
               {[
-                'Insured & Bonded Crews',
+              'Security-Cleared & Professionally Vetted Crews',
                 'Strata & Property Management Experience',
                 'Scheduled Maintenance Programs',
                 'Commercial Reporting & Accountability',

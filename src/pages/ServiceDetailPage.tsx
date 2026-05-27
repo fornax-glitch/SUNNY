@@ -12,6 +12,9 @@ import ServiceProcessExpanded from '../components/ServiceProcessExpanded';
 import ServiceFAQBlock from '../components/ServiceFAQBlock';
 import { BEFORE_AFTER_ITEMS } from '../data';
 
+import { trustParagraphs } from '../copy/trustAssurance';
+
+
 import { SERVICE_CATEGORIES } from '../data/serviceCategories';
 import { getContactHref } from '../utils/contactCta';
 
@@ -131,7 +134,7 @@ const ServiceDetailPage: React.FC = () => {
           <ServiceGrid
 
 
-            services={categoryData.services as any}
+            services={categoryData.services}
             ctaHref={getContactHref(activeTab)}
           />
 
@@ -187,7 +190,8 @@ const ServiceDetailPage: React.FC = () => {
             {[
               { step: '01', icon: '📋', title: 'Request a Quote', desc: 'Fill out our quick form or call us. We respond within 1 business day.' },
               { step: '02', icon: '🗓️', title: 'Schedule Your Service', desc: 'We work around your schedule, including after-hours for commercial clients.' },
-              { step: '03', icon: '⚙️', title: 'Expert Execution', desc: 'Our trained, insured team arrives on time and delivers exceptional results.' },
+              { step: '03', icon: '⚙️', title: 'Expert Execution', desc: 'Our trained team arrives on time and delivers exceptional results.' },
+
               { step: '04', icon: '✅', title: 'Quality Check', desc: 'We inspect our work before leaving. Your satisfaction is guaranteed.' },
             ].map((step) => (
               <div key={step.step} className="text-center relative">
@@ -218,15 +222,16 @@ const ServiceDetailPage: React.FC = () => {
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-wrap justify-center gap-6">
-            {[
+            {[ 
               '✅ Satisfaction Guaranteed',
-              '🔒 Fully Insured & Bonded',
+              '🔒 Security-Cleared & Professionally Vetted',
               '🌿 Eco-Friendly Products',
               '⏰ On-Time Every Time',
               '🍁 Local, Family-Owned Business',
               '📞 24/7 Support for Commercial Clients',
 
             ].map((guarantee) => (
+
               <div
                 key={guarantee}
                 className="flex items-center gap-2 px-5 py-2.5 bg-white rounded-full border border-gray-200 shadow-sm text-gray-700 text-sm font-medium"

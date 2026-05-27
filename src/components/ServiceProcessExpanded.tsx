@@ -23,7 +23,7 @@ const PROCESS_STEPS: Step[] = [
   {
     step: '03',
     title: 'Professional Cleaning / Execution',
-    desc: 'Trained, insured crews deliver the service using project-appropriate methods for dependable results.',
+    desc: 'Trained, security-cleared crews deliver the service using project-appropriate methods for dependable results.',
     icon: '⚙️',
   },
   {

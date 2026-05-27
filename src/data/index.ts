@@ -49,8 +49,8 @@ export const SERVICE_PILLARS: ServicePillar[] = [
         id: 'recurring-maid',
         icon: '✨',
         title: 'Recurring Maid Service',
-        description: 'Weekly, bi-weekly, or monthly. Same trusted cleaner every visit. Fully insured and bonded staff.',
-        features: ['Weekly/bi-weekly/monthly', 'Same cleaner', 'Insured staff'],
+
+features: ['Weekly/bi-weekly/monthly', 'Same cleaner', 'Security-Cleared & Professionally Vetted'],
         category: 'residential' as any, // TEMP: interior
       },
       {
