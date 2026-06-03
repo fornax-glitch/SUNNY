@@ -202,13 +202,13 @@ const Footer: React.FC = () => {
                 </li>
                 <li>
                   <a
-                    href="mailto:sabiri.amin@gmail.com"
+                    href="mailto:info@sunnysideupmaintenance.com"
                     className="flex items-start gap-3 text-gray-400 hover:text-sunny-400 transition-colors text-sm"
                   >
                     <Mail size={15} className="mt-0.5 shrink-0 text-sunny-400" />
                     <div>
                       <div className="font-semibold text-white">
-                        sabiri.amin@gmail.com
+                        info@sunnysideupmaintenance.com
                       </div>
                       <div className="text-xs">We reply within 1 business day</div>
                     </div>

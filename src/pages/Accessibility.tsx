@@ -42,9 +42,9 @@ const Accessibility: React.FC = () => {
               <p className="mt-3">
                 <a
                   className="text-sky-700 font-semibold underline"
-                  href="mailto:sabiri.amin@gmail.com"
+                  href="mailto:info@sunnysideupmaintenance.com"
                 >
-                  sabiri.amin@gmail.com
+                  info@sunnysideupmaintenance.com
                 </a>
               </p>
             </div>
