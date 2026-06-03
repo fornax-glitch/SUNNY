@@ -11,7 +11,7 @@ import ProofShowcase from '../components/ProofShowcase';
 import ProofShowcaseExpanded from '../components/ProofShowcaseExpanded';
 import WhyVancouverIslandChoosesSunnySideUp from '../components/WhyVancouverIslandChoosesSunnySideUp';
 
-import { trustClaims } from '../copy/trustAssurance';
+import { trustClaims, trustParagraphs } from '../copy/trustAssurance';
 
 const heroLines = [
   'Trusted Cleaning & Handyman Services',
