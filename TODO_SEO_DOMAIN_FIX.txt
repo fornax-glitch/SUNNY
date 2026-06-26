@@ -1,0 +1,8 @@
+SEO domain fix progress
+
+1) Updated public/robots.txt -> https://www.sunnysideupmaintenance.com/sitemap.xml
+2) Updated public/sitemap.xml URLs to https://www.sunnysideupmaintenance.com/... and removed old-domain TODO comment
+3) Updated root index.html (OG URL + canonical) to https://www.sunnysideupmaintenance.com/
+4) Verified build completes (npm run build)
+5) Remaining: ensure no sunnysideup.ca references remain in source/config (exclude dist/.vercel)
+

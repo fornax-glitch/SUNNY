@@ -1,6 +1,7 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://sunnysideup.ca/sitemap.xml
-# TODO: Replace with real domain when purchased — Waiting for client input
+Sitemap: https://www.sunnysideupmaintenance.com/sitemap.xml
+
+
 
